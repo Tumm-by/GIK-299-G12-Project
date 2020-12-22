@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace textBaseGame
 {
-    class MonstInfo
+    class Monster
     {
-        private int MonsterHealth;
-        public int MonstHealth
+        private int _monsterHealth;
+        public int MonsterHealth
         {
-            get { return MonsterHealth; }
-            set { MonsterHealth = value; }
+            get { return _monsterHealth; }
+            set { _monsterHealth = value; }
         }
-        public int MonstAttack;
+        public int MonsterAttack;
 
-        public int MonstDrop;
+        public int MonsterDrop;
     }
 }
