@@ -9,7 +9,8 @@ namespace textBaseGame
             Hero myHero = new Hero("Ola", 100, 0, 0, 9, 10, .2);
             Room[,] gameMap = GenerateMap();
             Render.RenderGame(gameMap, myHero);
-            for (int i = 0; i < 12; i++){
+            for (int i = 0; i < 12; i++)
+            {
                 Move(myHero, gameMap, 1, 0);
                 Render.RenderGame(gameMap, myHero);
                 Console.ReadLine();
@@ -20,7 +21,7 @@ namespace textBaseGame
         {
             Room[,] newMap = new Room[10, 10];
             Random rnd = new Random();
-            
+
             //Creating Rooms and monsters
             for (int i = 0; i < newMap.GetLength(0); i++)
             {
@@ -50,13 +51,13 @@ namespace textBaseGame
         }
 
         //Moves the hero
-        static void Move(Hero hero, Room[,] map, int xChange, int yChange) {
-            if (hero.PosX + xChange > map.GetLength(1) || hero.PosX + xChange < 0 )
-                return;
-            if (hero.PosY + yChange > map.GetLength(0) || hero.PosY + yChange < 0 )
-                return;
-            hero.PosX += xChange;
-            hero.PosY += yChange;
+        static void Move(Hero hero, Room[,] map, int xChange, int yChange)
+        {
+            if ((hero.PosX + xChange < map.GetLength(0) && hero.PosX + xChange >= 0) && (hero.PosY + yChange < map.GetLength(1) && hero.PosY + yChange >= 0))
+            {
+                hero.PosX += xChange;
+                hero.PosY += yChange;
+            }
         }
     }
 }
