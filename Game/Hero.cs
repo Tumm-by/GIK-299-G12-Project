@@ -18,7 +18,7 @@ namespace textBaseGame
 		public int AttackDamage { get => _attackDamage; set => _attackDamage = value;}
 		public double FailChance { get => _failChance; set => _failChance = value;}
 		
-		public Hero(string name, int hp, int numberOfKeys,int posX, int posY, int attackDamage, double failChance)
+		public Hero(string name, int hp, int numberOfKeys, int posX, int posY, int attackDamage, double failChance)
         {
             this._name = name;
 			this._numberOfKeys = numberOfKeys;

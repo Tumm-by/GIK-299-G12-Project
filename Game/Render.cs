@@ -26,7 +26,7 @@ namespace textBaseGame
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i, j].Monsters != null || !MonstersAreDead(map[i, j].Monsters))
+                    if (map[i, j].Monsters != null && !MonstersAreDead(map[i, j].Monsters))
                     {
                         renderMap[i,j]= " Y ";
                     }
@@ -38,7 +38,7 @@ namespace textBaseGame
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    Console.Write(renderMap[i,j]);
+                    Console.Write(renderMap[j,i]);
                 }
                 Console.WriteLine();
             }

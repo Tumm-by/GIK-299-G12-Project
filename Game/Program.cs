@@ -6,36 +6,57 @@ namespace textBaseGame
     {
         static void Main(string[] args)
         {
-            Hero myHero = new Hero("Ola", 100, 0, 9, 9, 10, .2);
+            Hero myHero = new Hero("Ola", 100, 0, 0, 9, 10, .2);
             Room[,] gameMap = GenerateMap();
             Render.RenderGame(gameMap, myHero);
-            Console.ReadLine();
+            for (int i = 0; i < 12; i++){
+                Move(myHero, gameMap, 1, 0);
+                Render.RenderGame(gameMap, myHero);
+                Console.ReadLine();
+            }
         }
 
-        static Room[,] GenerateMap(){
-            Room[,] newMap = new Room[10,10];
+        static Room[,] GenerateMap()
+        {
+            Room[,] newMap = new Room[10, 10];
             Random rnd = new Random();
-            int numberOfMonsterRooms = 15;
-            int random1;
-            int random2;
             
-            for (int i = 0; i < numberOfMonsterRooms; i++)
+            //Creating Rooms and monsters
+            for (int i = 0; i < newMap.GetLength(0); i++)
             {
-                random1 = rnd.Next(0, 10);
-                random2 = rnd.Next(1, 10);
-                if (newMap[random1, random2] == null)
+                for (int j = 0; j < newMap.GetLength(1); j++)
                 {
-                    newMap[random1, random2].Monsters = new Monster[rnd.Next(1,3)];
+                    if (rnd.Next(5) == 4)
+                    {
+                        newMap[i, j] = new Room(0, rnd.Next(1, 3));
+                        for (int k = 0; k < newMap[i, j].Monsters.Length; k++)
+                        {
+                            newMap[i, j].Monsters[k] = new Monster(10, 10, 10, .2);
+                        }
+                    }
+                    else
+                    {
+                        newMap[i, j] = new Room(0, 0);
+                    }
                 }
             }
 
-            for (int i = 0; i <= Room.TotalKeys; i++){
-                random1 = rnd.Next(0,newMap.GetLength(0));
-                random2 = rnd.Next(0,newMap.GetLength(1));
-                newMap[random1, random2].KeyCounter++;
+            //Adding keys to room
+            for (int i = 0; i <= Room.TotalKeys; i++)
+            {
+                newMap[rnd.Next(0, newMap.GetLength(0)), rnd.Next(0, newMap.GetLength(1))].KeyCounter++;
             }
-
             return newMap;
+        }
+
+        //Moves the hero
+        static void Move(Hero hero, Room[,] map, int xChange, int yChange) {
+            if (hero.PosX + xChange > map.GetLength(1) || hero.PosX + xChange < 0 )
+                return;
+            if (hero.PosY + yChange > map.GetLength(0) || hero.PosY + yChange < 0 )
+                return;
+            hero.PosX += xChange;
+            hero.PosY += yChange;
         }
     }
 }
