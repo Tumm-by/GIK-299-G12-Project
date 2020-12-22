@@ -21,6 +21,9 @@ namespace textBaseGame
             KeyCounter = keysInRoom;
             TotalKeys += keysInRoom;
             Monsters = new Monster[monstersInRoom];
+
+
+            
         }
     }
 }

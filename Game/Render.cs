@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace textBaseGame
 {
-    class Program
+    class Render
     {
-        static void Main(string[] args)
+        internal class RenderGame
         {
 
-            string[] map2 = {
+            string[] map =
+            {
                 " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ",
                 " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ",
                 " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ",
@@ -19,15 +22,16 @@ namespace textBaseGame
                 " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ",
                 " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ",
             };
-
-            for (int i = 0; i < 100; i++)
+            public void Render()
             {
-                if (i == 10 || i == 20 || i == 30 || i == 40 || i == 50 || i == 60 || i == 70 || i == 80 || i == 90 || i == 100)
+                for (int i = 0; i < 100; i++)
                 {
-                    Console.WriteLine();
+                    if (i == 10 || i == 20 || i == 30 || i == 40 || i == 50 || i == 60 || i == 70 || i == 80 || i == 90 || i == 100)
+                    {
+                        Console.WriteLine();
+                    }
+                    Console.Write(map[i]);
                 }
-                Console.Write(map2[i]);
-                
             }
         }
     }
