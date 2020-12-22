@@ -14,10 +14,9 @@ namespace textBaseGame
 		private int posY;
 		private int attackDamage = 10;
 		
-		public Hero(string name, int hp, int numberOfKeys, int posX, int posY)
+		public Hero(string name, int numberOfKeys, int posX, int posY)
         {
             this.name = name;
-            this.hp = hp;
 			this.numberOfKeys = numberOfKeys;
             this.posX = posX;
 			this.posY = posY;
@@ -28,21 +27,20 @@ namespace textBaseGame
 			get => hp; 
 			set => hp = value; 
 		}
+
 		public int NumberOfKeys { 
 			get => numberOfKeys; 
 			set => numberOfKeys = value; 
 		}
+
 		public int PosX { 
 			get => posX; 
 			set => posX = value; 
 		}
+
 		public int PosY { 
 			get => posY; 
 			set => posY = value; 
-		}
-		public string Name { 
-			get => name; 
-			set => name = value; 
 		}
 	}
 }
