@@ -8,8 +8,10 @@ namespace textBaseGame
     { 
         static public void RenderGame(Room[,] map, Hero hero)
         {
+            Console.Clear();
             string[,] renderMap =
             {
+                
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
