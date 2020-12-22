@@ -58,6 +58,14 @@ namespace textBaseGame
                 hero.PosX += xChange;
                 hero.PosY += yChange;
             }
+
+            if (!Render.MonstersAreDead(map[hero.PosX, hero.PosY]Monsters))
+                {
+
+                }
         }
+
+        static void FightOrFlight (){}
+
     }
 }
