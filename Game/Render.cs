@@ -4,9 +4,11 @@ using System.Text;
 
 namespace textBaseGame
 {
-    internal class RenderGame
-    {
-        public string[,] map =
+    class Render
+    { 
+        static public void RenderGame(Room[,] map, Hero hero)
+        {
+            string[,] renderMap =
             {
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
@@ -17,39 +19,44 @@ namespace textBaseGame
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
-                { " X ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
-
+                { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
             };
 
-        public RenderGame(int monsters)
-        {
-            Random rnd = new Random();
-            int random1;
-            int random2;
-            for (int i = 0; i < monsters; i++)
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                random1 = rnd.Next(1, 10);
-                random2 = rnd.Next(0, 10);
-                if (map[random1, random2] == " Y ")
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    i--;
+                    if (map[i, j].Monsters != null || !MonstersAreDead(map[i, j].Monsters))
+                    {
+                        renderMap[i,j]= " Y ";
+                    }
                 }
-                map[random1, random2] = " Y ";
             }
+            renderMap[hero.PosX,hero.PosY] = " X ";
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int j = 0; j < 10; j++)
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    Console.Write(map[i, j]);
+                    Console.Write(renderMap[i,j]);
                 }
                 Console.WriteLine();
             }
         }
 
+        static bool MonstersAreDead(Monster[] monsters)
+        {
+            for (int i = 0; i < monsters.Length; i++)
+            {
+                if (monsters[i].MonsterHealth > 0)
+                    return false;
+            }
+            return true;
+        }
+
         public void move()
         {
-            
+
         }
     }
 }

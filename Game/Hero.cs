@@ -1,6 +1,6 @@
 namespace textBaseGame
 {
-    internal class Hero
+    public class Hero
     {
 		private string _name;
 		private int _hp;
