@@ -11,8 +11,20 @@ namespace textBaseGame
             get { return _monsterHealth; }
             set { _monsterHealth = value; }
         }
-        public int MonsterAttack;
+        private int _monsterAttack;
 
-        public int MonsterDrop;
+        public int MonsterAttack
+        {
+            get { return _monsterAttack; }
+            set { _monsterAttack = value; }
+        }
+
+        private int _monsterDrop;
+
+        public int MonsterDrop
+        {
+            get { return _monsterDrop; }
+            set { _monsterDrop = value; }
+        }
     }
 }
