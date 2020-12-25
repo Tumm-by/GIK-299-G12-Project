@@ -1,5 +1,6 @@
-namespace textBaseGame
+namespace TextBaseGame
 {
+    //Class handling information about a hero
     public class Hero
     {
         private string _name;
@@ -16,7 +17,7 @@ namespace textBaseGame
             get => _hp;
             set
             {
-                if (value > 100)
+                if (value > 100) //Max hero health;
                     _hp = 100;
                 else
                     _hp = value;
@@ -31,13 +32,13 @@ namespace textBaseGame
 
         public Hero(string name, int hp, int numberOfKeys, int posX, int posY, int attackDamage, double failChance)
         {
-            this._name = name;
-            this._hp = hp;
-            this._numberOfKeys = numberOfKeys;
-            this._posX = posX;
-            this._posY = posY;
-            this._attackDamage = attackDamage;
-            this._failChance = failChance;
+            Name = name;
+            HP = hp;
+            NumberOfKeys = numberOfKeys;
+            PosX = posX;
+            PosY = posY;
+            AttackDamage = attackDamage;
+            FailChance = failChance;
         }
     }
 }

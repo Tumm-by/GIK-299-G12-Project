@@ -1,5 +1,6 @@
-namespace textBaseGame
+namespace TextBaseGame
 {
+    //Class handling information about a room with monsters and keys in it.
     class Room {
         private static int _TotalKeys;
         private int _keyCounter;
@@ -14,6 +15,7 @@ namespace textBaseGame
             TotalKeys += keysInRoom;
             Monsters = new Monster[monstersInRoom];  
         }
+
         public Room(){
             KeyCounter = 0;
             Monsters = new Monster[0];

@@ -1,5 +1,6 @@
-namespace textBaseGame
+namespace TextBaseGame
 {
+    //Class handling information about a monster
     class Monster
     {
         private int _monsterHealth;
