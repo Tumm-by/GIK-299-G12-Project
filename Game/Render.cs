@@ -8,7 +8,6 @@ namespace textBaseGame
     { 
         static public void RenderGame(Room[,] map, Hero hero)
         {
-            Console.Clear();
             string[,] renderMap =
             {
                 
@@ -46,7 +45,7 @@ namespace textBaseGame
             }
         }
 
-        static bool MonstersAreDead(Monster[] monsters)
+        public static bool MonstersAreDead(Monster[] monsters)
         {
             for (int i = 0; i < monsters.Length; i++)
             {

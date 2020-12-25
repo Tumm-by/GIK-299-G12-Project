@@ -25,10 +25,11 @@
          {
              Console.WriteLine("Roar!!");
              Console.WriteLine("You have encountered a monster!");
+             Console.WriteLine("Will you attack it? \"ATTACK\"!, \"Flee\"!");
          }
          public static void RecieveKey()
          {
-             Console.WriteLine("You have recieved a key!");
+            Console.WriteLine("You have recieved a key!");
             Console.WriteLine("Keys in possesion: {0}.");
          }
      }

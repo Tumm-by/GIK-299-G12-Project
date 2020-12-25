@@ -14,5 +14,9 @@ namespace textBaseGame
             TotalKeys += keysInRoom;
             Monsters = new Monster[monstersInRoom];  
         }
+        public Room(){
+            KeyCounter = 0;
+            Monsters = new Monster[0];
+        }
     }
 }
