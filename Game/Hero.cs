@@ -36,7 +36,6 @@ namespace TextBaseGame
         public Hero(string name)
         {
             Name = name;
-
         }
     }
 }

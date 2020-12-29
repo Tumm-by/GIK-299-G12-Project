@@ -1,7 +1,7 @@
 namespace TextBaseGame
 {
     //Class handling information about a monster
-    class Monster
+    internal class Monster
     {
         private int _monsterHealth = 10;
         private int _monsterAttack = 10;
