@@ -1,10 +1,14 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using System.Text.Json;
+using System.Collections.Generic;
 
 namespace TextBaseGame
 {
-    internal class RenderGame
+    public class RenderGame
     {
-        public string[,] map =
+        private string[,] _map =
             {
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
@@ -18,7 +22,10 @@ namespace TextBaseGame
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
             };
 
-        private bool PlayGame = true;
+        private bool _playGame = true;
+
+        public string[,] Map {get {return _map;} set {_map = value;}}
+        public bool PlayGame {get {return _playGame;} set {_playGame = value;}}
 
         public RenderGame(Hero hero)
         {
@@ -29,7 +36,7 @@ namespace TextBaseGame
             hero.PosX = 9;
             hero.PosY = 0;
 
-            //Draw enemies and keys on the map
+            //Draw enemies and keys on the Map
             for (int i = 0; i < 20; i++)
             {
                 random1 = rnd.Next(0, 10);
@@ -38,30 +45,30 @@ namespace TextBaseGame
                 if (i < 10)
                 {
                     //If there already is enemy on location, do again so we have 10 monsters
-                    if (map[random1, random2] == " Y ")
+                    if (Map[random1, random2] == " Y ")
                     {
                         i--;
                     }
                     //Add monster on location
-                    map[random1, random2] = " Y ";
+                    Map[random1, random2] = " Y ";
                 }
                 //Keys
                 if (i >= 10)
                 {
                     //If key already on this loaction, do again so we have 10 keys.
-                    if (map[random1, random2] == " K ")
+                    if (Map[random1, random2] == " K ")
                     {
                         i--;
                     }
                     //If Monster on location, add new symbol to represent key and monster.
-                    else if (map[random1, random2] == " Y ")
+                    else if (Map[random1, random2] == " Y ")
                     {
-                        map[random1, random2] = " YK";
+                        Map[random1, random2] = " YK";
                     }
                     //if nothing on location, add key.
                     else
                     {
-                        map[random1, random2] = " K ";
+                        Map[random1, random2] = " K ";
                     }
                 }
             }
@@ -70,14 +77,14 @@ namespace TextBaseGame
             while (PlayGame)
             {
                 Console.Clear();
-                //Draw hero on map
-                map[hero.PosX, hero.PosY] = " X ";
+                //Draw hero on Map
+                Map[hero.PosX, hero.PosY] = " X ";
 
                 for (int i = 0; i < 10; i++)
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        Console.Write(map[i, j]);
+                        Console.Write(Map[i, j]);
                     }
 
                     Console.WriteLine();
@@ -93,65 +100,65 @@ namespace TextBaseGame
             if (direction == "X")
             {
                 //Check if there is enemy on location we are goig to, if true, ask player if he wants to flee or fight
-                if (map[hero.PosX + differential, hero.PosY] == " Y ")
+                if (Map[hero.PosX + differential, hero.PosY] == " Y ")
                 {
                     if (AskPlayer(hero, 0))
                     {
-                        map[hero.PosX, hero.PosY] = " . ";
+                        Map[hero.PosX, hero.PosY] = " . ";
                         hero.PosX += differential;
                     }
                 }
                 //Check if there is enemy on location we are goig to, if true, ask player if he wants to flee or fight, also checks if there is key in room
-                else if (map[hero.PosX + differential, hero.PosY] == " YK")
+                else if (Map[hero.PosX + differential, hero.PosY] == " YK")
                 {
                     if (AskPlayer(hero, 1))
                     {
-                        map[hero.PosX, hero.PosY] = " . ";
+                        Map[hero.PosX, hero.PosY] = " . ";
                         hero.PosX += differential;
                     }
                 }
                 //Check if there is key in room
-                else if (map[hero.PosX + differential, hero.PosY] == " K ")
+                else if (Map[hero.PosX + differential, hero.PosY] == " K ")
                 {
-                    map[hero.PosX, hero.PosY] = " . ";
+                    Map[hero.PosX, hero.PosY] = " . ";
                     hero.PosX += differential;
                     GetKey(hero);
                 }
                 //If there isnt anything on location, just move and replace old loaction with default symbol
                 else
                 {
-                    map[hero.PosX, hero.PosY] = " . ";
+                    Map[hero.PosX, hero.PosY] = " . ";
                     hero.PosX += differential;
                 }
             }
             //Check above comments, only difference is direction.
             if (direction == "Y")
             {
-                if (map[hero.PosX, hero.PosY + differential] == " Y ")
+                if (Map[hero.PosX, hero.PosY + differential] == " Y ")
                 {
                     if (AskPlayer(hero, 0))
                     {
-                        map[hero.PosX, hero.PosY] = " . ";
+                        Map[hero.PosX, hero.PosY] = " . ";
                         hero.PosY += differential;
                     }
                 }
-                else if (map[hero.PosX, hero.PosY + differential] == " YK")
+                else if (Map[hero.PosX, hero.PosY + differential] == " YK")
                 {
                     if (AskPlayer(hero, 1))
                     {
-                        map[hero.PosX, hero.PosY] = " . ";
+                        Map[hero.PosX, hero.PosY] = " . ";
                         hero.PosY += differential;
                     }
                 }
-                else if (map[hero.PosX, hero.PosY + differential] == " K ")
+                else if (Map[hero.PosX, hero.PosY + differential] == " K ")
                 {
-                    map[hero.PosX, hero.PosY] = " . ";
+                    Map[hero.PosX, hero.PosY] = " . ";
                     hero.PosY += differential;
                     GetKey(hero);
                 }
                 else
                 {
-                    map[hero.PosX, hero.PosY] = " . ";
+                    Map[hero.PosX, hero.PosY] = " . ";
                     hero.PosY += differential;
                 }
             }
@@ -200,6 +207,10 @@ namespace TextBaseGame
                 Console.Clear();
                 Console.WriteLine("You win, the game is done");
                 PlayGame = false;
+            }
+
+            if (keyInfo.Key == ConsoleKey.Escape){
+                SaveGame(hero);
             }
         }
 
@@ -325,13 +336,24 @@ namespace TextBaseGame
                 hero.CollectedAllKeys = true;
             }
             Console.ReadLine();
-
         }
 
         private void TextMethod()
         {
             Console.ReadLine();
             Console.WriteLine();
+        }
+
+        private void SaveGame(Hero hero){
+            string[][] jaggedMap = new string[Map.GetLength(0)][];
+            for (int i = 0; i < jaggedMap.GetLength(0); i++){
+                jaggedMap[i] = new string[Map.GetLength(1)];
+                for (int j = 0; j < Map.GetLength(1); j++){
+                    jaggedMap[i][j] = Map[i,j];
+                }
+            }
+            File.WriteAllText("saveHero.json", JsonSerializer.Serialize<Hero>(hero), new UTF8Encoding());
+            File.WriteAllText("saveMap.json", JsonSerializer.Serialize<string[][]>(jaggedMap), new UTF8Encoding());          
         }
     }
 }

@@ -1,6 +1,8 @@
+using System;
 namespace TextBaseGame
 {
     //Class handling information about a hero
+    [Serializable]
     public class Hero
     {
         private string _name;
