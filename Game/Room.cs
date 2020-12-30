@@ -1,4 +1,4 @@
-namespace textBaseGame
+namespace TextBaseGame
 {
     class Room {
         private static int _TotalKeys;
