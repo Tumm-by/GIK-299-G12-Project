@@ -197,6 +197,7 @@ namespace TextBaseGame
             //Check after every move if we have all the keys, and if we are in top right corner, if both are true, user wins and loop ends.
             if (hero.CollectedAllKeys && hero.PosX == 0 && hero.PosY == 9)
             {
+                Console.Clear();
                 Console.WriteLine("You win, the game is done");
                 PlayGame = false;
             }
@@ -204,6 +205,7 @@ namespace TextBaseGame
 
         private bool AskPlayer(Hero hero, int keys)
         {
+            Console.Clear();
             Console.WriteLine("Roar!!");
             Console.WriteLine("You have encountered a monster!");
             Console.WriteLine("Will you attack it? \"ATTACK\"!, \"Flee\"!");
@@ -227,34 +229,6 @@ namespace TextBaseGame
                     Console.ReadLine();
                     return false;
             }
-        }
-
-        //If user dies, aka 0 or below HP, this method is called.
-        private void GameOver(Hero hero)
-        {
-            Console.WriteLine($"{hero.Name} died, pity. Game over.");
-            PlayGame = false;
-        }
-
-        private void TextMethod()
-        {
-            Console.ReadLine();
-            Console.WriteLine();
-        }
-
-        //If key, this function is called, to keep score on how many keys user has, and if it has 10, enable parameter for win senario.
-        private void GetKey(Hero hero)
-        {
-            Console.WriteLine("There was a key in this room!");
-            hero.NumberOfKeys++;
-            Console.WriteLine($"Key added to inventory, you now have {hero.NumberOfKeys}!");
-            if (hero.NumberOfKeys == 10)
-            {
-                Console.WriteLine("You have gotten all the keys, head to the top right corner!");
-                hero.CollectedAllKeys = true;
-            }
-            Console.ReadLine();
-
         }
 
         private void Fight(Hero hero, int keys)
@@ -318,6 +292,7 @@ namespace TextBaseGame
                         //if all enemies are dead
                         if (enemies == 0)
                         {
+                           
                             Console.WriteLine("You defeated all monsters in this room, good job!");
                             if (keys == 1)
                             {
@@ -329,6 +304,34 @@ namespace TextBaseGame
                 }
             }
             Console.ReadLine();
+        }
+
+        //If user dies, aka 0 or below HP, this method is called.
+        private void GameOver(Hero hero)
+        {
+            Console.WriteLine($"{hero.Name} died, pity. Game over.");
+            PlayGame = false;
+        }
+
+        //If key, this function is called, to keep score on how many keys user has, and if it has 10, enable parameter for win senario.
+        private void GetKey(Hero hero)
+        {
+            Console.WriteLine("There was a key in this room!");
+            hero.NumberOfKeys++;
+            Console.WriteLine($"Key added to inventory, you now have {hero.NumberOfKeys}!");
+            if (hero.NumberOfKeys == 10)
+            {
+                Console.WriteLine("You have gotten all the keys, head to the top right corner!");
+                hero.CollectedAllKeys = true;
+            }
+            Console.ReadLine();
+
+        }
+
+        private void TextMethod()
+        {
+            Console.ReadLine();
+            Console.WriteLine();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace textBaseGame
+namespace TextBaseGame
 {
     internal class TextScript
     {
