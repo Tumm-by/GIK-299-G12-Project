@@ -205,7 +205,7 @@ namespace TextBaseGame
             if (hero.CollectedAllKeys && hero.PosX == 0 && hero.PosY == 9)
             {
                 Console.Clear();
-                Console.WriteLine("You win, the game is done");
+                Ascii.EndGame();
                 PlayGame = false;
             }
 
@@ -217,9 +217,9 @@ namespace TextBaseGame
         private bool AskPlayer(Hero hero, int keys)
         {
             Console.Clear();
-            Console.WriteLine("Roar!!");
-            Console.WriteLine("You have encountered a monster!");
-            Console.WriteLine("Will you attack it? \"ATTACK\"!, \"Flee\"!");
+            Ascii.MonsterSpawn();
+            Ascii.MonsterEncounter();
+            Ascii.Decision();
 
             string input;
             input = Console.ReadLine().ToUpper().Trim();
@@ -233,10 +233,11 @@ namespace TextBaseGame
 
                 case "F":
                 case "FLEE":
+                    Console.WriteLine("You decided to flee!");
                     return false;
 
                 default:
-                    Console.WriteLine($"Poor {hero.Name} can't decide");
+                    Console.WriteLine($"{hero.Name}! Can't decide what to do! {hero.Name} retreated!");
                     Console.ReadLine();
                     return false;
             }
@@ -249,13 +250,13 @@ namespace TextBaseGame
             //Make monster
             Monster monster = new Monster(10, 10, 5, .5);
             //Randomize how many monsters in room
-            int enemies = rand.Next(1, 3);
+            int enemies = rand.Next(1, 4);
 
-            Console.WriteLine("A monster Approaches");
+            Console.WriteLine("The monster Approaches");
             if (enemies == 2)
-                Console.WriteLine("A second monster Approaches");
+                Console.WriteLine("Oh no! there is one more!");
             if (enemies == 3)
-                Console.WriteLine("A third monster Approaches");
+                Console.WriteLine("CURSES! there are 2 more monsters!");
             //If monsters are alive
             while (enemies != 0)
             {
@@ -264,8 +265,9 @@ namespace TextBaseGame
                 {
 
                     hero.HP -= monster.MonsterAttack;
-                    Console.WriteLine("CURSES! YOU ARE WOUNDED!");
-                    Console.WriteLine($"Your HP is now {hero.HP}");
+                    Console.WriteLine("You attack but fail....");
+                    Console.WriteLine("CURSES! THE MONSTER HURT YOU!");
+                    Console.WriteLine($"Hp decreased to: {hero.HP}");
                     TextMethod();
                     if (hero.HP <= 0)
                     {
@@ -276,7 +278,7 @@ namespace TextBaseGame
                 else
                 {
                     //if attack doesnt fail, kills monster
-                    Console.WriteLine("You strike!");
+                    Console.WriteLine("You strike! \nSucess you hit!.");
                     TextMethod();
                     monster.MonsterHealth -= hero.AttackDamage;
                     //if monster health is zero, but there is still enemies left, reset hp to full to represent next enemy.
@@ -287,7 +289,7 @@ namespace TextBaseGame
                             monster.MonsterHealth = 10;
                         }
                         //1 monster is dead of randomized amount.
-                        Console.WriteLine($"You defeat monster {enemies}");
+                        Console.WriteLine($"Monster NO: {enemies} slayed!");
                         TextMethod();
                         //delete 1 enemy, since one died
                         enemies--;
@@ -295,8 +297,8 @@ namespace TextBaseGame
                         if (!(rand.NextDouble() > monster.MonsterDropChance))
                         {
                             hero.HP += monster.MonsterDrop;
-                            Console.WriteLine("The Monster Dropped a potion! Your health increases");
-                            Console.WriteLine($"Your HP is now {hero.HP}");
+                            Console.WriteLine("The monster dropped a potion!, you recovered some health.");
+                            Console.WriteLine($"Your HP is now {hero.HP}.");
                             Console.ReadLine();
 
                         }
@@ -304,7 +306,7 @@ namespace TextBaseGame
                         if (enemies == 0)
                         {
                            
-                            Console.WriteLine("You defeated all monsters in this room, good job!");
+                            Console.WriteLine("You defeated all monsters in this room, fabolous!");
                             if (keys == 1)
                             {
                                 GetKey(hero);
@@ -327,14 +329,15 @@ namespace TextBaseGame
         //If key, this function is called, to keep score on how many keys user has, and if it has 10, enable parameter for win senario.
         private void GetKey(Hero hero)
         {
-            Console.WriteLine("There was a key in this room!");
+            Console.WriteLine("You found a key!");
             hero.NumberOfKeys++;
-            Console.WriteLine($"Key added to inventory, you now have {hero.NumberOfKeys}!");
+            Console.WriteLine($"Key added to inventory, Keys in possesion: {hero.NumberOfKeys}!");
             if (hero.NumberOfKeys == 10)
             {
-                Console.WriteLine("You have gotten all the keys, head to the top right corner!");
+                Console.WriteLine("You have collected all the keys!, travel to the top right corner!");
                 hero.CollectedAllKeys = true;
             }
+            Console.WriteLine("Press Enter to continue.");
             Console.ReadLine();
         }
 
