@@ -210,7 +210,26 @@ namespace TextBaseGame
             }
 
             if (keyInfo.Key == ConsoleKey.Escape){
-                SaveGame(hero);
+                string testInput = Console.ReadLine().Trim().ToUpper();
+                switch (testInput)
+                {
+                    case "SAVE":
+                        SaveLoad.SaveGameMenu(hero, Map);
+                        break;
+                    case "LOAD":
+                        Hero tempHero = SaveLoad.Load(@"Save\olgalost.json", out _map);
+                        hero.Name = tempHero.Name;
+                        hero.HP = tempHero.HP;
+                        hero.NumberOfKeys = tempHero.NumberOfKeys;
+                        hero.PosX = tempHero.PosX;
+                        hero.PosY = tempHero.PosY;
+                        hero.AttackDamage = tempHero.AttackDamage;
+                        hero.FailChance = tempHero.FailChance;
+                        hero.CollectedAllKeys = tempHero.CollectedAllKeys;
+                        break;
+                    default:
+                        break;
+                }      
             }
         }
 
@@ -343,17 +362,6 @@ namespace TextBaseGame
             Console.ReadLine();
             Console.WriteLine();
         }
-
-        private void SaveGame(Hero hero){
-            string[][] jaggedMap = new string[Map.GetLength(0)][];
-            for (int i = 0; i < jaggedMap.GetLength(0); i++){
-                jaggedMap[i] = new string[Map.GetLength(1)];
-                for (int j = 0; j < Map.GetLength(1); j++){
-                    jaggedMap[i][j] = Map[i,j];
-                }
-            }
-            File.WriteAllText("saveHero.json", JsonSerializer.Serialize<Hero>(hero), new UTF8Encoding());
-            File.WriteAllText("saveMap.json", JsonSerializer.Serialize<string[][]>(jaggedMap), new UTF8Encoding());          
-        }
+        
     }
 }
