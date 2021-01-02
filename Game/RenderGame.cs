@@ -24,8 +24,8 @@ namespace TextBaseGame
 
         private bool _playGame = true;
 
-        public string[,] Map {get {return _map;} set {_map = value;}}
-        public bool PlayGame {get {return _playGame;} set {_playGame = value;}}
+        public string[,] Map { get { return _map; } set { _map = value; } }
+        public bool PlayGame { get { return _playGame; } set { _playGame = value; } }
 
         public RenderGame(Hero hero)
         {
@@ -209,7 +209,8 @@ namespace TextBaseGame
                 PlayGame = false;
             }
 
-            if (keyInfo.Key == ConsoleKey.Escape){
+            if (keyInfo.Key == ConsoleKey.Escape)
+            {
                 string testInput = Console.ReadLine().Trim().ToUpper();
                 switch (testInput)
                 {
@@ -217,19 +218,11 @@ namespace TextBaseGame
                         SaveLoad.SaveGameMenu(hero, Map);
                         break;
                     case "LOAD":
-                        Hero tempHero = SaveLoad.Load(@"Save\olgalost.json", out _map);
-                        hero.Name = tempHero.Name;
-                        hero.HP = tempHero.HP;
-                        hero.NumberOfKeys = tempHero.NumberOfKeys;
-                        hero.PosX = tempHero.PosX;
-                        hero.PosY = tempHero.PosY;
-                        hero.AttackDamage = tempHero.AttackDamage;
-                        hero.FailChance = tempHero.FailChance;
-                        hero.CollectedAllKeys = tempHero.CollectedAllKeys;
+                        SaveLoad.LoadGameMenu(hero, ref _map);
                         break;
                     default:
                         break;
-                }      
+                }
             }
         }
 
@@ -322,7 +315,7 @@ namespace TextBaseGame
                         //if all enemies are dead
                         if (enemies == 0)
                         {
-                           
+
                             Console.WriteLine("You defeated all monsters in this room, good job!");
                             if (keys == 1)
                             {
@@ -362,6 +355,6 @@ namespace TextBaseGame
             Console.ReadLine();
             Console.WriteLine();
         }
-        
+
     }
 }
