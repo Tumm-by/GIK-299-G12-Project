@@ -42,7 +42,7 @@ namespace TextBaseGame
             ");
 
         }
-        public static void WaterMonster()
+        public static void Water()
         {
             Console.Write(@"
                             !
