@@ -15,7 +15,7 @@ namespace TextBaseGame
         private bool _collectedAllKeys = false;
 
         public string Name { get => _name; set => _name = value; }
-        
+
         public int HP
         {
             get => _hp;
@@ -34,13 +34,13 @@ namespace TextBaseGame
         public int AttackDamage { get => _attackDamage; set => _attackDamage = value; }
         public double FailChance { get => _failChance; set => _failChance = value; }
         public bool CollectedAllKeys { get { return _collectedAllKeys; } set { _collectedAllKeys = value; } }
-        
-        public Hero (){}
+
+        public Hero() { }
         public Hero(string name)
         {
             Name = name;
         }
 
-        
+
     }
 }
