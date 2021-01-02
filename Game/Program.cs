@@ -1,63 +1,58 @@
 ﻿using System;
 
-namespace textBaseGame
+namespace TextBaseGame
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            Hero myHero = new Hero("Ola", 100, 0, 0, 9, 10, .2);
-            Room[,] gameMap = GenerateMap();
-            Render.RenderGame(gameMap, myHero);
-            for (int i = 0; i < 12; i++)
+            bool check = true;
+
+            //Starts menu
+            while (check)
             {
-                Move(myHero, gameMap, 1, 0);
-                Render.RenderGame(gameMap, myHero);
-                Console.ReadLine();
+                check = Meny();
             }
         }
 
-        static Room[,] GenerateMap()
+        private static bool Meny()
         {
-            Room[,] newMap = new Room[10, 10];
-            Random rnd = new Random();
+            Console.Clear();
+            Console.WriteLine("Welcome to the textbased game: GET OUT OF THE DUNGEON!");
+            Console.WriteLine("Under your adventure you happened to get stuck in a dungeon!");
+            Console.WriteLine("To get out of the dungeon you will have to find 10 keys.");
+            Console.WriteLine("You can find the keys by collecting them from different rooms.");
+            Console.WriteLine("After colleting 10 keys you will have to reach the end of the dungeon to get out.");
+            Console.WriteLine("However beware of the monsters!\n");
+            //Starts game 
+            Start();
+            //Game has ended, check if user wants to play again.
+            Console.WriteLine("Wellplayed! want to play again?\n");
 
-            //Creating Rooms and monsters
-            for (int i = 0; i < newMap.GetLength(0); i++)
+            switch (Console.ReadLine())
             {
-                for (int j = 0; j < newMap.GetLength(1); j++)
-                {
-                    if (rnd.Next(5) == 4)
-                    {
-                        newMap[i, j] = new Room(0, rnd.Next(1, 3));
-                        for (int k = 0; k < newMap[i, j].Monsters.Length; k++)
-                        {
-                            newMap[i, j].Monsters[k] = new Monster(10, 10, 10, .2);
-                        }
-                    }
-                    else
-                    {
-                        newMap[i, j] = new Room(0, 0);
-                    }
-                }
-            }
+                case "y":
+                case "yes":
+                    Start();
+                    return true;
 
-            //Adding keys to room
-            for (int i = 0; i <= Room.TotalKeys; i++)
-            {
-                newMap[rnd.Next(0, newMap.GetLength(0)), rnd.Next(0, newMap.GetLength(1))].KeyCounter++;
+                case "n":
+                case "no":
+                    return false;
+
+                default:
+                    return true;
             }
-            return newMap;
         }
 
-        //Moves the hero
-        static void Move(Hero hero, Room[,] map, int xChange, int yChange)
+        //Starts the game
+        private static void Start()
         {
-            if ((hero.PosX + xChange < map.GetLength(0) && hero.PosX + xChange >= 0) && (hero.PosY + yChange < map.GetLength(1) && hero.PosY + yChange >= 0))
-            {
-                hero.PosX += xChange;
-                hero.PosY += yChange;
-            }
+            Console.WriteLine("Name your hero!");
+            string heroName = Console.ReadLine();
+
+            Hero myHero = new Hero(heroName);
+            new RenderGame(myHero);
         }
     }
 }
