@@ -10,6 +10,16 @@ namespace TextBaseGame
     {
         const string saveDirPath = @"Save\"; //Save folder
         const string saveFileType = @".json";//Save file type 
+
+        //Ensures we always have a save folder.
+        static SaveLoad()
+        {
+            //Checks if the Save folder exists and creates it if it doesn't
+            if (!Directory.Exists(saveDirPath))
+            {
+                Directory.CreateDirectory(saveDirPath);
+            }
+        }
         //Used for saving the gamestate to a file.
         [Serializable]
         struct SaveGame
@@ -127,10 +137,12 @@ namespace TextBaseGame
                                 runInputMenu = false;
                             }
                         }
-                        else //Invalid name or menu option.
+                        else
+                        { //Invalid name or menu option.
                             Console.WriteLine("Invalid filename or option. \"exit\",\"List\" or a save game name of ONLY LETTERS");
-                        Console.Write("Press enter to continue");
-                        Console.ReadLine();
+                            Console.Write("Press enter to continue");
+                            Console.ReadLine();
+                        }
                         break;
                 }
             }
@@ -142,7 +154,6 @@ namespace TextBaseGame
         {
             string input;
             Console.Clear();
-
             while (true)
             {
 
