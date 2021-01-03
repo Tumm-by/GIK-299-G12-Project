@@ -176,7 +176,7 @@ namespace TextBaseGame
             {
                 return true;
             }
-        } 
+        }
 
         public static bool LoadGameMenu(Hero hero, ref string[,] map)
         {
@@ -196,7 +196,7 @@ namespace TextBaseGame
 
                     case "list": //Lists the savegames that can be loaded;
 
-                        if(SavesExists())
+                        if (SavesExists())
                         {
                             foreach (string s in GetSaveGameList())
                                 Console.WriteLine(s);
