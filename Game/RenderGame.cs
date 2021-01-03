@@ -27,12 +27,16 @@ namespace TextBaseGame
         public RenderGame()
         {
             Hero hero = new Hero();
-            SaveLoad.LoadGameMenu(hero, ref _map);
+            bool loadSuccess = SaveLoad.LoadGameMenu(hero, ref _map);
             string name = hero.Name;
             Console.WriteLine(name);
             Console.ReadKey();
 
-            RenderLoop(hero);
+            if (loadSuccess)
+            {
+                RenderLoop(hero);
+            }
+            
         }
 
         public RenderGame(Hero hero)
@@ -338,7 +342,9 @@ namespace TextBaseGame
             if (hero.CollectedAllKeys && hero.PosX == 0 && hero.PosY == 9)
             {
                 Console.Clear();
-                Console.WriteLine("You win, the game is done");
+                Console.WriteLine("You win, the game is over");
+                Console.WriteLine("Press anykey to continue\n");
+                Console.ReadKey();
                 PlayGame = false;
             }
 

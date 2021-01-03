@@ -150,7 +150,7 @@ namespace TextBaseGame
             Console.ReadLine();
         }
         //Menu handling user interaction for loading
-        public static void LoadGameMenu(Hero hero, ref string[,] map)
+        public static bool LoadGameMenu(Hero hero, ref string[,] map)
         {
             string input;
             Console.Clear();
@@ -165,7 +165,7 @@ namespace TextBaseGame
                 {
                     case "exit":
                         Console.WriteLine("Loading cancelled, press enter to continue");
-                        return;
+                        return false;
                     case "list": //Lists the savegames that can be loaded;
                         foreach (string s in GetSaveGameList())
                             Console.WriteLine(s);
@@ -176,7 +176,7 @@ namespace TextBaseGame
                             Load($"{saveDirPath}{input}{saveFileType}", hero, out map);
                             Console.Write("Loading successfull, press enter to continue");
                             Console.ReadLine();
-                            return;
+                            return true;
                         }
                         else //File doesn't exist.
                         {

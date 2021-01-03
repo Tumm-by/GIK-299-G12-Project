@@ -16,8 +16,10 @@ namespace TextBaseGame
 
         private static bool Meny()
         {
+            
             if (true)
             {
+                Console.Clear();
                 Console.WriteLine("Write start or s to start game");
                 Console.WriteLine("Write load or l to load game");
                 Console.WriteLine("Write exit or e to exit game");
@@ -54,34 +56,6 @@ namespace TextBaseGame
 
         private static bool GameFinished()
         {
-            ////Game has ended, check if user wants to play again.
-
-            //bool check = true;
-            //do
-            //{
-            //    Console.Clear();
-                
-            //    switch (Console.ReadLine())
-            //    {
-            //        case "y":
-            //        case "yes":
-            //            Start();
-            //            check = false;
-            //            break;
-
-            //        case "n":
-            //        case "no":
-            //            Meny();
-            //            check = false;
-            //            break;
-
-            //        default:
-            //            continue;
-            //    }
-
-            //} while (check);
-            Console.WriteLine("Game is over! want to play again?\n");
-            Console.WriteLine();
             Meny();
             return false;
         }
