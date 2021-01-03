@@ -442,7 +442,7 @@ namespace TextBaseGame
                             monster.MonsterHealth = 10;
                         }
                         //1 monster is dead of randomized amount.
-                        Console.WriteLine($"Monster NO: {enemies} slayed!");
+                        Console.WriteLine($"Monster NO: {enemies} slain!");
                         TextMethod();
                         //delete 1 enemy, since one died
                         enemies--;
