@@ -29,11 +29,11 @@ namespace TextBaseGame
             }
         }
 
-        public int NumberOfKeys { get => _numberOfKeys; set => _numberOfKeys = value; }
-        public int PosX { get => _posX; set => _posX = value; }
-        public int PosY { get => _posY; set => _posY = value; }
-        public int AttackDamage { get => _attackDamage; set => _attackDamage = value; }
-        public double FailChance { get => _failChance; set => _failChance = value; }
+        public int NumberOfKeys { get { return _numberOfKeys; } set { _numberOfKeys = value; } }
+        public int PosX { get { return _posX; } set { _posX = value; } }
+        public int PosY { get { return _posY; } set { _posY = value; } }
+        public int AttackDamage { get { return _attackDamage; } set { _attackDamage = value; } }
+        public double FailChance { get { return _failChance; } set { _failChance = value; } }
         public bool CollectedAllKeys { get { return _collectedAllKeys; } set { _collectedAllKeys = value; } }
 
         public Hero()
