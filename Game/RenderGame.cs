@@ -100,11 +100,12 @@ namespace TextBaseGame
                 do
                 {
                     Console.Clear();
-                    Console.WriteLine("Do you want to use keyboard arrows or text to move hero?");
-                    Console.WriteLine("Write arrow or a to start game");
-                    Console.WriteLine("Write text or t to load game");
+                    Console.WriteLine("Do You Want to Use Arrow Keys or Text to Move Hero?");
+                    Console.WriteLine();
+                    Console.WriteLine("Write //ARROW// or //A// to Use Arrow Keys to Move Hero");
+                    Console.WriteLine("Write //TEXT// or //T// to Use Text to Move Hero");
 
-                    switch (Console.ReadLine())
+                    switch (Console.ReadLine().ToLower().Trim())
                     {
                         case "a":
                         case "arrow":
@@ -131,15 +132,24 @@ namespace TextBaseGame
                 Console.Clear();
                 //Draw hero on Map
                 Map[hero.PosX, hero.PosY] = " X ";
-
+                if (moveWay == 2)
+                {
+                    Ascii.HowToMoveText();
+                }
+                else if (moveWay == 1)
+                {
+                    Ascii.HowToMoveArrow();
+                }
+                
                 for (int i = 0; i < 10; i++)
                 {
+                    Console.Write("                ");
                     for (int j = 0; j < 10; j++)
                     {
                         Console.Write(Map[i, j]);
                     }
 
-                    Console.WriteLine();
+                   Console.WriteLine("      ");
                 }
                 //Wait for move
                 Move(hero, moveWay);
@@ -282,6 +292,7 @@ namespace TextBaseGame
             else if (moveway == 2)
             {
                 string readInput = Console.ReadLine();
+                
 
                 if (readInput == "go up" || readInput == "up" || readInput == "u")
                 {
@@ -342,6 +353,8 @@ namespace TextBaseGame
             if (hero.CollectedAllKeys && hero.PosX == 0 && hero.PosY == 9)
             {
                 Console.Clear();
+                Ascii.EndGameWin();
+                Console.WriteLine();
                 Console.WriteLine("You win, the game is over");
                 Console.WriteLine("Press anykey to continue\n");
                 Console.ReadKey();
@@ -354,9 +367,9 @@ namespace TextBaseGame
         private bool AskPlayer(Hero hero, int keys)
         {
             Console.Clear();
-            Console.WriteLine("Roar!!");
-            Console.WriteLine("You have encountered a monster!");
-            Console.WriteLine("Will you attack it? \"ATTACK\"!, \"Flee\"!");
+            Ascii.MonsterSpawn();
+            Ascii.MonsterEncounter();
+            Ascii.Decision();
 
             string input;
             input = Console.ReadLine().ToUpper().Trim();
@@ -370,10 +383,11 @@ namespace TextBaseGame
 
                 case "F":
                 case "FLEE":
+                    Console.WriteLine("You decided to flee!");
                     return false;
 
                 default:
-                    Console.WriteLine($"Poor {hero.Name} can't decide");
+                    Console.WriteLine($"{hero.Name}! Can't decide what to do! {hero.Name} retreated!");
                     Console.ReadLine();
                     return false;
             }
@@ -381,27 +395,29 @@ namespace TextBaseGame
 
         private void Fight(Hero hero, int keys)
         {
-            Console.Clear();
+            //Console.Clear();
             Random rand = new Random();
             //Make monster
             Monster monster = new Monster(10, 10, 5, .5);
             //Randomize how many monsters in room
-            int enemies = rand.Next(1, 3);
+            int enemies = rand.Next(1, 4);
 
-            Console.WriteLine("A monster Approaches");
+            Console.WriteLine("The monster Approaches");
             if (enemies == 2)
-                Console.WriteLine("A second monster Approaches");
+                Console.WriteLine("Oh no! there is one MORE!");
             if (enemies == 3)
-                Console.WriteLine("A third monster Approaches");
+                Console.WriteLine("CURSES! there are 2 MORE monsters!");
             //If monsters are alive
             while (enemies != 0)
             {
                 //if attack fails, gets attacked.
                 if (!(rand.NextDouble() > hero.FailChance))
                 {
+
                     hero.HP -= monster.MonsterAttack;
-                    Console.WriteLine("CURSES! YOU ARE WOUNDED!");
-                    Console.WriteLine($"Your HP is now {hero.HP}");
+                    Console.WriteLine("You attack but fail....");
+                    Console.WriteLine("CURSES! THE MONSTER HURT YOU!");
+                    Console.WriteLine($"Hp decreased to: {hero.HP}");
                     TextMethod();
                     if (hero.HP <= 0)
                     {
@@ -412,7 +428,7 @@ namespace TextBaseGame
                 else
                 {
                     //if attack doesnt fail, kills monster
-                    Console.WriteLine("You strike!");
+                    Console.WriteLine("You strike! \nSucess you hit!.");
                     TextMethod();
                     monster.MonsterHealth -= hero.AttackDamage;
                     //if monster health is zero, but there is still enemies left, reset hp to full to represent next enemy.
@@ -423,7 +439,7 @@ namespace TextBaseGame
                             monster.MonsterHealth = 10;
                         }
                         //1 monster is dead of randomized amount.
-                        Console.WriteLine($"You defeat monster {enemies}");
+                        Console.WriteLine($"Monster NO: {enemies} slayed!");
                         TextMethod();
                         //delete 1 enemy, since one died
                         enemies--;
@@ -431,14 +447,17 @@ namespace TextBaseGame
                         if (!(rand.NextDouble() > monster.MonsterDropChance))
                         {
                             hero.HP += monster.MonsterDrop;
-                            Console.WriteLine("The Monster Dropped a potion! Your health increases");
-                            Console.WriteLine($"Your HP is now {hero.HP}");
+                            Console.WriteLine("The monster dropped a potion!, you recovered some health.");
+                            Console.WriteLine($"Your HP is now {hero.HP}.");
                             Console.ReadLine();
+
                         }
                         //if all enemies are dead
                         if (enemies == 0)
                         {
-                            Console.WriteLine("You defeated all monsters in this room, good job!");
+
+                            Console.WriteLine("You defeated all monsters in this room, fabolous!");
+                            Console.ReadKey();
                             if (keys == 1)
                             {
                                 GetKey(hero);
@@ -454,16 +473,21 @@ namespace TextBaseGame
         //If user dies, aka 0 or below HP, this method is called.
         private void GameOver(Hero hero)
         {
-            Console.WriteLine($"{hero.Name} died, pity. Game over.");
+            //Console.WriteLine($"{hero.Name} died, pity. Game over.");
+            Ascii.EndGameLose();
             PlayGame = false;
         }
 
         //If key, this function is called, to keep score on how many keys user has, and if it has 10, enable parameter for win senario.
         private void GetKey(Hero hero)
         {
+
+            Ascii.CollectKey();
             Console.WriteLine("There was a key in this room!");
             hero.NumberOfKeys++;
             Console.WriteLine($"Key added to inventory, you now have {hero.NumberOfKeys}!");
+            
+
             if (hero.NumberOfKeys == 10)
             {
                 Console.WriteLine("You have gotten all the keys, head to the top right corner!");

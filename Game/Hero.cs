@@ -6,7 +6,7 @@ namespace TextBaseGame
     public class Hero
     {
         private string _name;
-        private int _hp = 100;
+        private int _hp = 1;
         private int _numberOfKeys = 0;
         private int _posX;
         private int _posY;

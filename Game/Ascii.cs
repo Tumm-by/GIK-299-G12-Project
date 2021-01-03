@@ -5,57 +5,63 @@ namespace TextBaseGame
     class Ascii
     {
 
-        public static void Ant()
+        public static void MonsterSpawn()
         {
-            Console.Write(@"
-                ,_      _,
-                  '.__.'
-             '-,   (__)   ,-'
-               '._ .::. _.'
-                 _'(^^)'_
-              _,` `>\/<` `,_
-           `    ,-` )( `-,  `
-                |  /==\  |
-              ,-'  |=-|  '-,
-                   )-=(
-                   \__/
+            Random random = new Random();
+            int enemies = random.Next(1, 4);
+            switch (enemies)
+            {
+                case 1:
+                    Console.Write(@"
+                          ,_      _,
+                            '.__.'
+                       '-,   (__)   ,-'
+                         '._ .::. _.'
+                           _'(^^)'_
+                        _,` `>\/<` `,_
+                     `    ,-` )( `-,  `
+                          |  /==\  |
+                        ,-'  |=-|  '-,
+                             )-=(
+                             \__/
              ");
+                    Console.WriteLine();
+                    break;
+                case 2:
+                    Console.Write(@"
 
-        }
-        public static void Slime()
-        {
-            Console.Write(@"
-
-                       ########                        
-               ########################                
-             ##########################                
-            ##############################,            
-            ##############  ######  ######,            
-            ##############  ######  ######,            
-            ##############################,            
-            ##############################,            
-            ##############################,            
-            ##############################,
+                                ########                        
+                        ########################                
+                       ##########################                
+                     ##############################,            
+                     ##############  ######  ######,            
+                     ##############  ######  ######,            
+                     ##############################,            
+                     ##############################,            
+                     ##############################,            
+                     ##############################,
             ");
+                    Console.WriteLine();
+                    break;
 
-        }
-        public static void Water()
-        {
-            Console.Write(@"
-                            !
-                           !!
-                         !####!
-                       !#########!                               
-                    !###############!                           
-                 !#####__#####__######!                          
-                !##### ||#####||#######!                         
-                !######||#####||#######!                         
-                !######--#####--######!                       
-                  !##################!                           
-                    !##############!
+                case 3:
+                    Console.Write(@"
+                                !
+                               !!
+                             !####!
+                           !#########!                               
+                        !###############!                           
+                      !#####__#####__######!                          
+                     !##### ||#####||#######!                         
+                     !######||#####||#######!                         
+                     !######--#####--######!                       
+                       !##################!                           
+                         !##############!
            ");
+                    Console.WriteLine();
+                    break;
+            }
         }
-
         public static void CollectKey()
         {
             Console.Write(@"
@@ -69,39 +75,95 @@ namespace TextBaseGame
                *%%%&&&&&&&&&&&&%%%                    %%%         %%%%%%   
                    %%%%%%%%%  
            ");
+            Console.WriteLine();
         }
+
+        public static void StartGame()
+        {
+            Console.Write(@"
+            .___________________________________.
+            ||                                 || 
+            ||  WELCOME TO THE TEXTBASED GAME  ||
+            ||         D U N G E O N           ||
+            ||_________________________________||
+            ");
+        }
+        public static void HowToMoveText()
+        {
+            Console.Write(@"
+            .___________________________________.
+            ||                                 || 
+            ||          INSTRUCTIONS           ||
+            ||                                 ||
+            || To move you will have to type!  ||
+            ||                                 ||
+            ||     TO MOVE UP: go up           ||
+            ||     TO MOVE Down: go down       ||
+            ||                                 ||
+            ||     TO MOVE Right: go right     ||
+            ||     TO MOVE Left: go left       ||
+            ||_________________________________||
+            ");
+            Console.WriteLine();
+        }
+        public static void HowToMoveArrow()
+        {
+            Console.Write(@"
+            .___________________________________.
+            ||                                 || 
+            ||          INSTRUCTIONS           ||
+            ||                                 ||
+            || To move you will have to type!  ||
+            ||                                 ||
+            ||          TO MOVE UP: ↑          ||
+            ||          TO MOVE Down: ↓        ||
+            ||                                 ||
+            ||          TO MOVE Right: →       ||
+            ||          TO MOVE Left: ←        ||
+            ||_________________________________||
+            ");
+            Console.WriteLine();
+        }
+
         public static void Decision()
         {
             Console.Write(@"
-            .______________________________.
-            ||                            ||
-            ||  ATTACK (A)  ||  FLEE (F)  ||
-            ||____________________________||
-            ");
+                  .______________________________.
+                  ||                            ||
+                  ||  ATTACK (A)  ||  FLEE (F)  ||
+                  ||____________________________||
+                  ");
+            Console.WriteLine();
         }
+
         public static void MonsterEncounter()
         {
             Console.Write(@"
-            .______________________________.
-            ||                            ||
-            || You encountered a monster! ||
-            ||    What will you do?       ||
-            ||____________________________||
-            ");
+                  .______________________________.
+                  ||                            ||
+                  || You encountered a monster! ||
+                  ||    What will you do?       ||
+                  ||____________________________||
+                  ");
+            Console.WriteLine();
         }
 
-        public static void MoreMonster()
+        public static void AllMonsterSlayed()
         {
             Console.Write(@"
-            .______________________________.
-            ||                            ||
-            ||   Another one appeared!    ||
-            ||____________________________||
-
+            ._____________________________________________.
+            ||                                           ||
+            ||       You have slain all monsters!        ||
+            ||     you have unlocked the achievement:    ||
+            ||                                           ||      
+            ||       |M O N S T E R  S L A Y E R|        ||
+            ||                                           ||  
+            ||___________________________________________||
             ");
+            Console.WriteLine();
         }
 
-        public static void EndGame()
+        public static void EndGameWin()
         {
             Console.Write(@"
             .______________________________.
@@ -113,6 +175,23 @@ namespace TextBaseGame
                         \(°Ω°)/
             ||____________________________||
             ");
+            Console.WriteLine();
         }
+
+        public static void EndGameLose()
+        {
+            Console.Write(@"
+            .______________________________.
+            ||                            ||
+            
+                    Y O U   D I E D
+ 
+                    
+                        \(°Ω°)/
+            ||____________________________||
+            ");
+            Console.WriteLine();
+        }
+
     }
 }
