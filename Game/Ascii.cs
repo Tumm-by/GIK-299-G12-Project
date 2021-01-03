@@ -85,7 +85,7 @@ namespace TextBaseGame
             ||_________________________________||
             ");
         }
-        public static void HowToMove()
+        public static void HowToMoveText()
         {
             Console.Write(@"
             .___________________________________.
@@ -99,6 +99,23 @@ namespace TextBaseGame
             ||                                 ||
             ||     TO MOVE Right: go right     ||
             ||     TO MOVE Left: go left       ||
+            ||_________________________________||
+            ");
+        }
+        public static void HowToMoveArrow()
+        {
+            Console.Write(@"
+            .___________________________________.
+            ||                                 || 
+            ||          INSTRUCTIONS           ||
+            ||                                 ||
+            || To move you will have to type!  ||
+            ||                                 ||
+            ||          TO MOVE UP: ↑          ||
+            ||          TO MOVE Down: ↓        ||
+            ||                                 ||
+            ||          TO MOVE Right: →       ||
+            ||          TO MOVE Left: ←        ||
             ||_________________________________||
             ");
         }
