@@ -351,7 +351,7 @@ namespace TextBaseGame
                 Ascii.EndGameWin();
                 Console.WriteLine();
                 Console.WriteLine("You win, the game is over");
-                Console.WriteLine("Press anykey to continue\n");
+                Console.WriteLine("Press any key to continue\n");
                 Console.ReadKey();
                 PlayGame = false;
             }
