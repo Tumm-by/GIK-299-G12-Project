@@ -102,13 +102,17 @@ namespace TextBaseGame
             ||                                 ||
             ||     TO MOVE Right: go right     ||
             ||     TO MOVE Left: go left       ||
+            ||                                 ||
+            ||     TO OPEN Menu: menu          ||
             ||_________________________________||
             ");
             Console.WriteLine();
         }
         public static void HowToMoveArrow()
         {
-            Console.Write(@"
+            string a = "\u2190";
+
+            Console.Write($@"
             .___________________________________.
             ||                                 || 
             ||          INSTRUCTIONS           ||
@@ -119,7 +123,30 @@ namespace TextBaseGame
             ||          TO MOVE Down: ↓        ||
             ||                                 ||
             ||          TO MOVE Right: →       ||
-            ||          TO MOVE Left: ←        ||
+            ||          TO MOVE Left: {a}        ||
+            ||                                 ||
+            ||          TO OPEN Menu: ESCAPE   ||
+            ||_________________________________||
+            ");
+            Console.WriteLine();
+        }
+
+        public static void MenuInstruct()
+        {
+            Console.Clear();
+            Console.Write(@"
+            .___________________________________.
+            ||                                 || 
+            ||          INSTRUCTIONS           ||
+            ||                                 ||
+            ||             Menu                ||
+            ||                                 ||
+            ||         TO LOAD: load           ||
+            ||         TO SAVE: save           ||
+            ||         TO EXIT GAME: exit      ||
+            ||                                 ||
+            ||         TO EXIT MENU: enter     ||
+            ||                                 ||
             ||_________________________________||
             ");
             Console.WriteLine();

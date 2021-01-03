@@ -262,10 +262,12 @@ namespace TextBaseGame
                         CheckMove(hero, (1), "Y");
                     }
                 }
-
+               
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
-
+                    Console.Write("._"); //Prevents readkey from interfering with output, without this readkey eats from ascii text.
+                    Console.Clear();
+                    Ascii.MenuInstruct();
                     string testInput = Console.ReadLine().Trim().ToUpper();
                     if (true)
                     {
@@ -327,6 +329,7 @@ namespace TextBaseGame
                 }
                 if (readInput == "menu")
                 {
+                    Ascii.MenuInstruct();
                     string testInput = Console.ReadLine().Trim().ToUpper();
                     switch (testInput)
                     {

@@ -6,6 +6,8 @@ namespace TextBaseGame
     {
         private static void Main()
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             bool check = true;
             //Starts menu
             while (check)
@@ -24,6 +26,8 @@ namespace TextBaseGame
                 Console.WriteLine("Write //START// or //S// to Play");
                 Console.WriteLine("Write //LOAD// or //L// to Load a Saved Game");
                 Console.WriteLine("Write //EXIT// or //E// to Exit Game");
+
+
 
                 switch (Console.ReadLine().ToLower().Trim())
                 {
@@ -76,7 +80,7 @@ namespace TextBaseGame
                 {
                     break;
                 }
-                Console.WriteLine("Name cant be empty and include symbols/numbers");
+                Console.WriteLine("Name can't be empty and include symbols/numbers");
 
             } while (true);
 
@@ -84,6 +88,7 @@ namespace TextBaseGame
             new RenderGame(myHero);
             return GameFinished();
         }
+
         private static bool ValidName(string name)
         {
             if (string.IsNullOrEmpty(name))
