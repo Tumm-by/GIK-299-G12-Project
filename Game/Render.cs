@@ -18,7 +18,25 @@ namespace TextBaseGame
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
             };
 
+<<<<<<< Updated upstream:Game/Render.cs
         private bool PlayGame = true;
+=======
+        private bool _playGame = true;
+
+        public string[,] Map { get { return _map; } set { _map = value; } }
+        public bool PlayGame { get { return _playGame; } set { _playGame = value; } }
+
+
+        public RenderGame()
+        {
+            Hero hero = new Hero();
+            SaveLoad.LoadGameMenu(hero, ref _map);
+            string name = hero.Name;
+            Console.WriteLine(name);
+            Console.ReadKey();
+
+            RenderLoop(hero);
+        }
 
         public RenderGame(Hero hero)
         {
@@ -66,7 +84,47 @@ namespace TextBaseGame
                 }
             }
 
-            //While game active, render
+            //While game active, loop render
+            RenderLoop(hero);
+        }
+
+        public void RenderLoop(Hero hero)
+        {
+            int moveWay = 0;
+
+            if (moveWay == 0)
+            {
+
+                bool check = true;
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("Do you want to use keyboard arrows or text to move hero?");
+                    Console.WriteLine("Write arrow or a to start game");
+                    Console.WriteLine("Write text or t to load game");
+
+                    switch (Console.ReadLine())
+                    {
+                        case "a":
+                        case "arrow":
+                            moveWay = 1;
+                            check = false;
+                            break;
+
+                        case "t":
+                        case "text":
+                            moveWay = 2;
+                            check = false;
+                            break;
+
+                        default:
+                            continue;
+                    }
+
+                } while (check);
+
+            }
+
             while (PlayGame)
             {
                 Console.Clear();
@@ -82,8 +140,8 @@ namespace TextBaseGame
 
                     Console.WriteLine();
                 }
-                //Wait for move 
-                Move(hero);
+                //Wait for move
+                Move(hero, moveWay);
             }
         }
 
@@ -157,42 +215,127 @@ namespace TextBaseGame
             }
         }
 
-        public void Move(Hero hero)
+        public void Move(Hero hero, int moveway)
         {
-            //Get what key is pressed
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            if (moveway == 1)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    if (hero.PosX > 0)
+                    {
+                        CheckMove(hero, (-1), "X");
+                    }
+                }
+                //If DownArrow, go down, but check what is there and so the location is not out of bounds
+                if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    if (hero.PosX < 9)
+                    {
+                        CheckMove(hero, 1, "X");
+                    }
+                }
+                //If LeftArrow, go Left, but check what is there and so the location is not out of bounds
+                if (keyInfo.Key == ConsoleKey.LeftArrow)
+                {
+                    if (hero.PosY > 0)
+                    {
+                        CheckMove(hero, (-1), "Y");
+                    }
+                }
+                //If RightArrow, go Right, but check what is there and so the location is not out of bounds
+                if (keyInfo.Key == ConsoleKey.RightArrow)
+                {
+                    if (hero.PosY < 9)
+                    {
+                        CheckMove(hero, (1), "Y");
+                    }
+                }
 
-            //If UpArrow, go up, but check what is there and so the location is not out of bounds
-            if (keyInfo.Key == ConsoleKey.UpArrow)
-            {
-                if (hero.PosX > 0)
+                if (keyInfo.Key == ConsoleKey.Escape)
                 {
-                    CheckMove(hero, (-1), "X");
+
+                    string testInput = Console.ReadLine().Trim().ToUpper();
+                    if (true)
+                    {
+                        switch (testInput)
+                        {
+                            case "SAVE":
+                                SaveLoad.SaveGameMenu(hero, Map);
+                                break;
+
+                            case "LOAD":
+                                SaveLoad.LoadGameMenu(hero, ref _map);
+                                break;
+
+                            case "EXIT":
+                                PlayGame = false;
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
-            //If DownArrow, go down, but check what is there and so the location is not out of bounds
-            if (keyInfo.Key == ConsoleKey.DownArrow)
+            else if (moveway == 2)
             {
-                if (hero.PosX < 9)
+                string readInput = Console.ReadLine();
+
+                if (readInput == "go up" || readInput == "up" || readInput == "u")
                 {
-                    CheckMove(hero, 1, "X");
+                    if (hero.PosX > 0)
+                    {
+                        CheckMove(hero, (-1), "X");
+                    }
                 }
-            }
-            //If LeftArrow, go Left, but check what is there and so the location is not out of bounds
-            if (keyInfo.Key == ConsoleKey.LeftArrow)
-            {
-                if (hero.PosY > 0)
+                //If DownArrow, go down, but check what is there and so the location is not out of bounds
+                if (readInput == "go down" || readInput == "down" || readInput == "d")
                 {
-                    CheckMove(hero, (-1), "Y");
+                    if (hero.PosX < 9)
+                    {
+                        CheckMove(hero, 1, "X");
+                    }
                 }
-            }
-            //If RightArrow, go Right, but check what is there and so the location is not out of bounds
-            if (keyInfo.Key == ConsoleKey.RightArrow)
-            {
-                if (hero.PosY < 9)
+                //If LeftArrow, go Left, but check what is there and so the location is not out of bounds
+                if (readInput == "go left" || readInput == "left" || readInput == "l")
                 {
-                    CheckMove(hero, (1), "Y");
+                    if (hero.PosY > 0)
+                    {
+                        CheckMove(hero, (-1), "Y");
+                    }
                 }
+                //If RightArrow, go Right, but check what is there and so the location is not out of bounds
+                if (readInput == "go right" || readInput == "right" || readInput == "r")
+                {
+                    if (hero.PosY < 9)
+                    {
+                        CheckMove(hero, (1), "Y");
+                    }
+                }
+                if (readInput == "menu")
+                {
+                    string testInput = Console.ReadLine().Trim().ToUpper();
+                    switch (testInput)
+                    {
+                        case "SAVE":
+                            SaveLoad.SaveGameMenu(hero, Map);
+                            break;
+
+                        case "LOAD":
+                            SaveLoad.LoadGameMenu(hero, ref _map);
+                            break;
+
+                        case "EXIT":
+                            PlayGame = false;
+                            break;
+
+                        default:
+                            break;
+
+                    }
+                }
+
             }
             //Check after every move if we have all the keys, and if we are in top right corner, if both are true, user wins and loop ends.
             if (hero.CollectedAllKeys && hero.PosX == 0 && hero.PosY == 9)
@@ -201,6 +344,11 @@ namespace TextBaseGame
                 Console.WriteLine("You win, the game is done");
                 PlayGame = false;
             }
+<<<<<<< Updated upstream:Game/Render.cs
+=======
+
+
+>>>>>>> Stashed changes:Game/RenderGame.cs
         }
 
         private bool AskPlayer(Hero hero, int keys)
@@ -251,7 +399,6 @@ namespace TextBaseGame
                 //if attack fails, gets attacked.
                 if (!(rand.NextDouble() > hero.FailChance))
                 {
-
                     hero.HP -= monster.MonsterAttack;
                     Console.WriteLine("CURSES! YOU ARE WOUNDED!");
                     Console.WriteLine($"Your HP is now {hero.HP}");
@@ -287,12 +434,10 @@ namespace TextBaseGame
                             Console.WriteLine("The Monster Dropped a potion! Your health increases");
                             Console.WriteLine($"Your HP is now {hero.HP}");
                             Console.ReadLine();
-
                         }
                         //if all enemies are dead
                         if (enemies == 0)
                         {
-                           
                             Console.WriteLine("You defeated all monsters in this room, good job!");
                             if (keys == 1)
                             {
