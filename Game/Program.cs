@@ -6,6 +6,8 @@ namespace TextBaseGame
     {
         private static void Main()
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             bool check = true;
             //Starts menu
             while (check)
@@ -24,6 +26,8 @@ namespace TextBaseGame
                 Console.WriteLine("Write //START// or //S// to Play");
                 Console.WriteLine("Write //LOAD// or //L// to Load a Saved Game");
                 Console.WriteLine("Write //EXIT// or //E// to Exit Game");
+
+
 
                 switch (Console.ReadLine().ToLower().Trim())
                 {

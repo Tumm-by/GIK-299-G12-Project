@@ -265,6 +265,7 @@ namespace TextBaseGame
                
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
+                    Console.Write("._"); //Prevents readkey from interfering with output, without this readkey eats from ascii text.
                     Console.Clear();
                     Ascii.MenuInstruct();
                     string testInput = Console.ReadLine().Trim().ToUpper();
