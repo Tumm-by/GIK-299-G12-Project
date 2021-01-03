@@ -245,7 +245,7 @@ namespace TextBaseGame
 
         private void Fight(Hero hero, int keys)
         {
-            Console.Clear();
+            //Console.Clear();
             Random rand = new Random();
             //Make monster
             Monster monster = new Monster(10, 10, 5, .5);
