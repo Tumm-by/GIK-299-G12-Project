@@ -2,23 +2,27 @@ using System;
 
 namespace TextBaseGame
 {
-    class GameHandler
+    internal class GameHandler
     {
-        Room[,] _gameMap;
-        Hero _myHero;
-        Random rand = new Random();
-        bool _collectedAllKeys = false;
+        private Room[,] _gameMap;
+        private Hero _myHero;
+        private Random rand = new Random();
+        private bool _collectedAllKeys = false;
 
-        Hero Hero { get { return _myHero; } set { _myHero = value; } }
-        Room[,] GameMap { get { return _gameMap; } set { _gameMap = value; } }
-        bool CollectedAllKeys { get { return _collectedAllKeys; } set { _collectedAllKeys = value; } }
-        bool PlayGame = true;
+        private Hero Hero
+        { get { return _myHero; } set { _myHero = value; } }
+        private Room[,] GameMap
+        { get { return _gameMap; } set { _gameMap = value; } }
+        private bool CollectedAllKeys
+        { get { return _collectedAllKeys; } set { _collectedAllKeys = value; } }
+        private bool PlayGame = true;
 
         public GameHandler(Hero hero, Room[,] gameMap)
         {
             _myHero = hero;
             _gameMap = gameMap;
         }
+
         //Main loop running the game;
         public void RunGame()
         {
@@ -41,6 +45,7 @@ namespace TextBaseGame
                 }
             } while (PlayGame);
         }
+
         //Renders/Displays the game map on screen.
         private void RenderGame()
         {
@@ -72,13 +77,13 @@ namespace TextBaseGame
 
                     if (GameMap[i, j].KeyCounter > 0)
                     {
-                        renderMap[i, j] = renderMap [i,j].TrimEnd() + "K";
+                        renderMap[i, j] = renderMap[i, j].TrimEnd() + "K";
                     }
                 }
             }
 
             //Hero position
-            if (renderMap[Hero.PosX, Hero.PosY] == " . " || (renderMap[Hero.PosX, Hero.PosY] == " .K" ))
+            if (renderMap[Hero.PosX, Hero.PosY] == " . " || (renderMap[Hero.PosX, Hero.PosY] == " .K"))
                 renderMap[Hero.PosX, Hero.PosY] = " X ";
             else
                 renderMap[Hero.PosX, Hero.PosY] = "X.Y"; //Hero and monster;
@@ -104,8 +109,9 @@ namespace TextBaseGame
                 Console.WriteLine();
             }
         }
+
         //Moves the hero
-        void Move(int xChange, int yChange)
+        private void Move(int xChange, int yChange)
         {
             if ((Hero.PosX + xChange < GameMap.GetLength(0) && Hero.PosX + xChange >= 0) && (Hero.PosY + yChange < GameMap.GetLength(1) && Hero.PosY + yChange >= 0))
             {
@@ -113,8 +119,9 @@ namespace TextBaseGame
                 Hero.PosY += yChange;
             }
         }
+
         //Checks if there are living monsters in a room
-        bool NoMonstersInRoom(Monster[] monsters)
+        private bool NoMonstersInRoom(Monster[] monsters)
         {
             for (int i = 0; i < monsters.Length; i++)
             {
@@ -123,6 +130,7 @@ namespace TextBaseGame
             }
             return true;
         }
+
         //Collects the keys in a room;
         private void CollectKeys()
         {
@@ -139,13 +147,14 @@ namespace TextBaseGame
                 }
             }
         }
+
         //Lets the player decide how to act when encountering a monster
         private void Encounter()
         {
             Console.WriteLine("Roar!!");
             Console.WriteLine("You have encountered a monster!");
             Console.WriteLine("Will you attack it? \"ATTACK\"!, \"Flee\"!");
-            
+
             bool askPlayer = true;
             while (askPlayer)
             {
@@ -156,11 +165,13 @@ namespace TextBaseGame
                         Fight();
                         askPlayer = false;
                         break;
+
                     case "F":
                     case "FLEE":
                         PlayerMove();
                         askPlayer = false;
                         break;
+
                     default:
                         Console.WriteLine($"Poor {Hero.Name} can't decide, whether to \"Attack\" or to \"Flee\"");
                         break;
@@ -169,6 +180,7 @@ namespace TextBaseGame
             Console.Write("Enter to once again push forward");
             Console.ReadLine();
         }
+
         //Menu letting the player move
         private void PlayerMove()
         {
@@ -183,31 +195,36 @@ namespace TextBaseGame
                         Move(0, -1);
                         askPlayer = false;
                         break;
+
                     case "DOWN":
                     case "GO DOWN":
                         Move(0, 1);
                         askPlayer = false;
                         break;
+
                     case "LEFT":
                     case "GO LEFT":
                         Move(-1, 0);
                         askPlayer = false;
                         break;
+
                     case "RIGHT":
                     case "GO RIGHT":
                         Move(1, 0);
                         askPlayer = false;
                         break;
+
                     case "EXIT":
                         PlayGame = false;
                         return;
+
                     default:
                         Console.WriteLine($"Poor {Hero.Name} can't decidewhere to go");
                         break;
                 }
             }
-
         }
+
         //Handles fights with monsters
         private void Fight()
         {
@@ -243,6 +260,7 @@ namespace TextBaseGame
                 }
             }
         }
+
         //Displays game over message and ends the game
         private void GameOver()
         {

@@ -6,10 +6,10 @@ using System.Text.Json;
 namespace TextBaseGame
 {
     //Handles the saving and loading to and from file for the TextBasedGame
-    class SaveLoad
+    internal class SaveLoad
     {
-        const string saveDirPath = @"Save\"; //Save folder
-        const string saveFileType = @".json";//Save file type 
+        private const string saveDirPath = @"Save\"; //Save folder
+        private const string saveFileType = @".json";//Save file type
 
         //Ensures we always have a save folder.
         static SaveLoad()
@@ -20,20 +20,22 @@ namespace TextBaseGame
                 Directory.CreateDirectory(saveDirPath);
             }
         }
+
         //Used for saving the gamestate to a file.
         [Serializable]
-        struct SaveGame
+        private struct SaveGame
         {
-            string[][] _map;
+            private string[][] _map;
             public Hero _hero;
 
             public string[][] Map { get { return _map; } set { _map = value; } }
             public Hero Hero { get { return _hero; } set { _hero = value; } }
         }
+
         //Saves the game
         public static void Save(string saveGamePath, Hero hero, string[,] map)
         {
-            //2d arrays are not supported by the json serializer. Converting 2d array into a jagged array which is supported. 
+            //2d arrays are not supported by the json serializer. Converting 2d array into a jagged array which is supported.
             string[][] jaggedMap = new string[map.GetLength(0)][];
             for (int i = 0; i < jaggedMap.GetLength(0); i++)
             {
@@ -51,6 +53,7 @@ namespace TextBaseGame
             //Saving to file
             File.WriteAllText(saveGamePath, JsonSerializer.Serialize<SaveGame>(save), new UTF8Encoding());
         }
+
         //Loads a game from a file
         public static void Load(string saveGamePath, Hero hero, out string[,] map)
         {
@@ -78,6 +81,7 @@ namespace TextBaseGame
             hero.FailChance = loadGame.Hero.FailChance;
             hero.CollectedAllKeys = loadGame.Hero.CollectedAllKeys;
         }
+
         //Menu handling user interaction for saving
         public static void SaveGameMenu(Hero hero, string[,] map)
         {
@@ -88,7 +92,7 @@ namespace TextBaseGame
             {
                 Console.Clear();
                 Console.WriteLine("Welcome to the save menu, please select");
-                Console.WriteLine("A name for your savegame, \"exit\" to go back or list to show already existing saves");
+                Console.WriteLine("A name for your savegame, //EXIT// to go back or //LIST// to show already existing saves");
 
                 input = Console.ReadLine().ToLower().Trim();
                 switch (input)
@@ -96,12 +100,19 @@ namespace TextBaseGame
                     case "exit":
                         Console.WriteLine("Saving cancelled, press enter to continue");
                         return;
+
                     case "list": //Lists the savegames that already exist
-                        foreach (string s in GetSaveGameList())
-                            Console.WriteLine(s);
+
+                        if (SavesExists())
+                        {
+                            foreach (string s in GetSaveGameList())
+                                Console.WriteLine(s);
+                        }
+
                         Console.Write("Press enter to continue");
                         Console.ReadLine();
                         break;
+
                     default:
                         if (ValidSaveGameName(input))
                         {
@@ -121,10 +132,12 @@ namespace TextBaseGame
                                             yesNoMenu = false;
                                             runInputMenu = false;
                                             break;
+
                                         case ("N"):
                                         case ("NO"):
                                             yesNoMenu = false;
                                             break;
+
                                         default:
                                             Console.WriteLine("Invalid option please select \"yes\" or \"no\"");
                                             break;
@@ -139,7 +152,7 @@ namespace TextBaseGame
                         }
                         else
                         { //Invalid name or menu option.
-                            Console.WriteLine("Invalid filename or option. \"exit\",\"List\" or a save game name of ONLY LETTERS");
+                            Console.WriteLine("Invalid filename or option. //EXIT//, //LIST// or a save game name of ONLY LETTERS");
                             Console.Write("Press enter to continue");
                             Console.ReadLine();
                         }
@@ -149,16 +162,30 @@ namespace TextBaseGame
             Console.WriteLine("Save successfull, press enter to continue");
             Console.ReadLine();
         }
+
         //Menu handling user interaction for loading
+        private static bool SavesExists()
+        {
+            string[] list = GetSaveGameList();
+            if (list.Length == 0)
+            {
+                Console.WriteLine("List is empty, there are no saved games \n");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        } 
+
         public static bool LoadGameMenu(Hero hero, ref string[,] map)
         {
             string input;
             Console.Clear();
             while (true)
             {
-
                 Console.WriteLine("Welcome to the load menu, please select");
-                Console.WriteLine("A game to load, \"exit\" to go back or \"list\" to show a list of available saves");
+                Console.WriteLine("A game to load, //EXIT// to go back or //LIST// to show a list of available saves");
 
                 input = Console.ReadLine().ToLower().Trim();
                 switch (input)
@@ -166,10 +193,17 @@ namespace TextBaseGame
                     case "exit":
                         Console.WriteLine("Loading cancelled, press enter to continue");
                         return false;
+
                     case "list": //Lists the savegames that can be loaded;
-                        foreach (string s in GetSaveGameList())
-                            Console.WriteLine(s);
+
+                        if(SavesExists())
+                        {
+                            foreach (string s in GetSaveGameList())
+                                Console.WriteLine(s);
+                        }
+
                         break;
+
                     default:
                         if (File.Exists($"{saveDirPath}{input}{saveFileType}"))//if the file exists
                         {
@@ -186,6 +220,7 @@ namespace TextBaseGame
                 }
             }
         }
+
         //returns string[] of the savegames that already exist
         public static string[] GetSaveGameList()
         {
@@ -199,6 +234,7 @@ namespace TextBaseGame
             }
             return saveGameList;
         }
+
         //Checks if the "name" string is a valid name. I.e. one that contains only letters
         private static bool ValidSaveGameName(string name)
         {
