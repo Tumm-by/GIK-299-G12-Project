@@ -11,10 +11,13 @@ namespace TextBaseGame
 
         private Hero Hero
         { get { return _myHero; } set { _myHero = value; } }
+
         private Room[,] GameMap
         { get { return _gameMap; } set { _gameMap = value; } }
+
         private bool CollectedAllKeys
         { get { return _collectedAllKeys; } set { _collectedAllKeys = value; } }
+
         private bool PlayGame = true;
 
         public GameHandler(Hero hero, Room[,] gameMap)
