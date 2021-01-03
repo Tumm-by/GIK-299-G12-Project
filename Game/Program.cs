@@ -76,7 +76,7 @@ namespace TextBaseGame
                 {
                     break;
                 }
-                Console.WriteLine("Name cant be empty and include symbols/numbers");
+                Console.WriteLine("Name can't be empty and include symbols/numbers");
 
             } while (true);
 
@@ -84,6 +84,7 @@ namespace TextBaseGame
             new RenderGame(myHero);
             return GameFinished();
         }
+
         private static bool ValidName(string name)
         {
             if (string.IsNullOrEmpty(name))

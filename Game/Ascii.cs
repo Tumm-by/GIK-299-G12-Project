@@ -102,6 +102,7 @@ namespace TextBaseGame
             ||                                 ||
             ||     TO MOVE Right: go right     ||
             ||     TO MOVE Left: go left       ||
+            ||     TO OPEN Menu: menu          ||
             ||_________________________________||
             ");
             Console.WriteLine();
@@ -120,6 +121,43 @@ namespace TextBaseGame
             ||                                 ||
             ||          TO MOVE Right: →       ||
             ||          TO MOVE Left: ←        ||
+            ||          TO OPEN Menu: ESCAPE   ||
+            ||_________________________________||
+            ");
+            Console.WriteLine();
+        }
+
+        public static void MenuInstruct()
+        {
+            //Console.Clear();
+            //Console.Write(@"
+            //.___________________________________.
+            //||                                 || 
+            //||          INSTRUCTIONS           ||
+            //||                                 ||
+            //||             Menu                ||
+            //||                                 ||
+            //||         TO LOAD: load           ||
+            //||         TO SAVE: save           ||
+            //||         TO EXIT GAME: exit      ||
+            //||                                 ||
+            //||         TO EXIT MENU: enter     ||
+            //||                                 ||
+            //||_________________________________||
+            //");
+            Console.Write(@"
+            .___________________________________.
+            ||                                 || 
+            ||          INSTRUCTIONS           ||
+            ||                                 ||
+            || To move you will have to type!  ||
+            ||                                 ||
+            ||          TO MOVE UP: ↑          ||
+            ||          TO MOVE Down: ↓        ||
+            ||                                 ||
+            ||          TO MOVE Right: →       ||
+            ||          TO MOVE Left: ←        ||
+            ||          TO OPEN Menu: ESCAPE   ||
             ||_________________________________||
             ");
             Console.WriteLine();
