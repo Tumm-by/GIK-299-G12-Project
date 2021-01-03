@@ -5,8 +5,8 @@ namespace TextBaseGame
     {
         private int _monsterHealth = 10;
         private int _monsterAttack = 10;
-        private int _monsterDrop = 5;
-        private double _monsterDropChance = .5;
+        private int _monsterDrop = 10;
+        private double _monsterDropChance = .1;
 
         public int MonsterHealth { get { return _monsterHealth; } set { _monsterHealth = value; } }
         public int MonsterAttack { get { return _monsterAttack; } set { _monsterAttack = value; } }

@@ -23,7 +23,6 @@ namespace TextBaseGame
         public string[,] Map { get { return _map; } set { _map = value; } }
         public bool PlayGame { get { return _playGame; } set { _playGame = value; } }
 
-
         public RenderGame()
         {
             Hero hero = new Hero();
@@ -36,7 +35,6 @@ namespace TextBaseGame
             {
                 RenderLoop(hero);
             }
-            
         }
 
         public RenderGame(Hero hero)
@@ -95,7 +93,6 @@ namespace TextBaseGame
 
             if (moveWay == 0)
             {
-
                 bool check = true;
                 do
                 {
@@ -122,9 +119,7 @@ namespace TextBaseGame
                         default:
                             continue;
                     }
-
                 } while (check);
-                
             }
 
             while (PlayGame)
@@ -140,7 +135,7 @@ namespace TextBaseGame
                 {
                     Ascii.HowToMoveArrow();
                 }
-                
+
                 for (int i = 0; i < 10; i++)
                 {
                     Console.Write("                ");
@@ -149,7 +144,7 @@ namespace TextBaseGame
                         Console.Write(Map[i, j]);
                     }
 
-                   Console.WriteLine("      ");
+                    Console.WriteLine("      ");
                 }
                 //Wait for move
                 Move(hero, moveWay);
@@ -262,7 +257,7 @@ namespace TextBaseGame
                         CheckMove(hero, (1), "Y");
                     }
                 }
-               
+
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     Console.Write("._"); //Prevents readkey from interfering with output, without this readkey eats from ascii text.
@@ -294,7 +289,6 @@ namespace TextBaseGame
             else if (moveway == 2)
             {
                 string readInput = Console.ReadLine();
-                
 
                 if (readInput == "go up" || readInput == "up" || readInput == "u")
                 {
@@ -347,10 +341,8 @@ namespace TextBaseGame
 
                         default:
                             break;
-
                     }
                 }
-
             }
             //Check after every move if we have all the keys, and if we are in top right corner, if both are true, user wins and loop ends.
             if (hero.CollectedAllKeys && hero.PosX == 0 && hero.PosY == 9)
@@ -363,8 +355,6 @@ namespace TextBaseGame
                 Console.ReadKey();
                 PlayGame = false;
             }
-
-            
         }
 
         private bool AskPlayer(Hero hero, int keys)
@@ -416,7 +406,6 @@ namespace TextBaseGame
                 //if attack fails, gets attacked.
                 if (!(rand.NextDouble() > hero.FailChance))
                 {
-
                     hero.HP -= monster.MonsterAttack;
                     Console.WriteLine("You attack but fail....");
                     Console.WriteLine("CURSES! THE MONSTER HURT YOU!");
@@ -431,7 +420,7 @@ namespace TextBaseGame
                 else
                 {
                     //if attack doesnt fail, kills monster
-                    Console.WriteLine("You strike! \nSucess you hit!.");
+                    Console.WriteLine("You strike! \nA solid hit!");
                     TextMethod();
                     monster.MonsterHealth -= hero.AttackDamage;
                     //if monster health is zero, but there is still enemies left, reset hp to full to represent next enemy.
@@ -442,7 +431,7 @@ namespace TextBaseGame
                             monster.MonsterHealth = 10;
                         }
                         //1 monster is dead of randomized amount.
-                        Console.WriteLine($"Monster NO: {enemies} slain!");
+                        Console.WriteLine($"Monster NO: {enemies} is slain!");
                         TextMethod();
                         //delete 1 enemy, since one died
                         enemies--;
@@ -453,12 +442,10 @@ namespace TextBaseGame
                             Console.WriteLine("The monster dropped a potion!, you recovered some health.");
                             Console.WriteLine($"Your HP is now {hero.HP}.");
                             Console.ReadLine();
-
                         }
                         //if all enemies are dead
                         if (enemies == 0)
                         {
-
                             Console.WriteLine("You defeated all monsters in this room, fabolous!");
                             Console.ReadKey();
                             if (keys == 1)
@@ -484,12 +471,10 @@ namespace TextBaseGame
         //If key, this function is called, to keep score on how many keys user has, and if it has 10, enable parameter for win senario.
         private void GetKey(Hero hero)
         {
-
             Ascii.CollectKey();
             Console.WriteLine("There was a key in this room!");
             hero.NumberOfKeys++;
             Console.WriteLine($"Key added to inventory, you now have {hero.NumberOfKeys}!");
-            
 
             if (hero.NumberOfKeys == 10)
             {

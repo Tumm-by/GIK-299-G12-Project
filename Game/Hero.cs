@@ -1,4 +1,5 @@
 using System;
+
 namespace TextBaseGame
 {
     //Class handling information about a hero
@@ -35,12 +36,13 @@ namespace TextBaseGame
         public double FailChance { get => _failChance; set => _failChance = value; }
         public bool CollectedAllKeys { get { return _collectedAllKeys; } set { _collectedAllKeys = value; } }
 
-        public Hero() { }
+        public Hero()
+        {
+        }
+
         public Hero(string name)
         {
             Name = name;
         }
-
-
     }
 }
