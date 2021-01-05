@@ -429,60 +429,58 @@ namespace TextBaseGame
                 Console.WriteLine("Oh no! there is one MORE!");
             if (enemies == 3)
                 Console.WriteLine("CURSES! there are 2 MORE monsters!");
+
+
             //If monsters are alive
             while (enemies != 0)
             {
-                //if attack fails, gets attacked.
+                
                 if (!(rand.NextDouble() > hero.FailChance))
                 {
                     hero.HP -= monster.MonsterAttack;
-                    Console.WriteLine("You attack but fail....");
                     Console.WriteLine("CURSES! THE MONSTER HURT YOU!");
                     Console.WriteLine($"Hp decreased to: {hero.HP}");
-                    TextMethod();
+                    
                     if (hero.HP <= 0)
                     {
                         GameOver(hero);
                         return;
                     }
                 }
-                else
+                
+                Console.WriteLine("You strike! \nA solid hit!");
+                TextMethod();
+                monster.MonsterHealth -= hero.AttackDamage;
+                //if monster health is zero, but there is still enemies left, reset hp to full to represent next enemy.
+                if (monster.MonsterHealth <= 0)
                 {
-                    //if attack doesnt fail, kills monster
-                    Console.WriteLine("You strike! \nA solid hit!");
-                    TextMethod();
-                    monster.MonsterHealth -= hero.AttackDamage;
-                    //if monster health is zero, but there is still enemies left, reset hp to full to represent next enemy.
-                    if (monster.MonsterHealth <= 0)
+                    if (enemies > 0)
                     {
-                        if (enemies > 0)
+                        monster.MonsterHealth = 10;
+                    }
+                    //1 monster is dead of randomized amount.
+                    Console.WriteLine($"Monster NO: {enemies} is slain!");
+                    TextMethod();
+                    //delete 1 enemy, since one died
+                    enemies--;
+                    //randomized chance of health potion drop when enemy died
+                    if (!(rand.NextDouble() > monster.MonsterDropChance))
+                    {
+                        hero.HP += monster.MonsterDrop;
+                        Console.WriteLine("The monster dropped a potion!, you recovered some health.");
+                        Console.WriteLine($"Your HP is now {hero.HP}.");
+                        Console.ReadLine();
+                    }
+                    //if all enemies are dead
+                    if (enemies == 0)
+                    {
+                        Console.WriteLine("You defeated all monsters in this room, fabolous!");
+                        Console.ReadKey();
+                        if (keys == 1)
                         {
-                            monster.MonsterHealth = 10;
+                            GetKey(hero);
                         }
-                        //1 monster is dead of randomized amount.
-                        Console.WriteLine($"Monster NO: {enemies} is slain!");
-                        TextMethod();
-                        //delete 1 enemy, since one died
-                        enemies--;
-                        //randomized chance of health potion drop when enemy died
-                        if (!(rand.NextDouble() > monster.MonsterDropChance))
-                        {
-                            hero.HP += monster.MonsterDrop;
-                            Console.WriteLine("The monster dropped a potion!, you recovered some health.");
-                            Console.WriteLine($"Your HP is now {hero.HP}.");
-                            Console.ReadLine();
-                        }
-                        //if all enemies are dead
-                        if (enemies == 0)
-                        {
-                            Console.WriteLine("You defeated all monsters in this room, fabolous!");
-                            Console.ReadKey();
-                            if (keys == 1)
-                            {
-                                GetKey(hero);
-                            }
-                            return;
-                        }
+                        return;
                     }
                 }
             }
