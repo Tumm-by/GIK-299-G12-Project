@@ -27,7 +27,6 @@ namespace TextBaseGame
         {
             Hero hero = new Hero();
             bool loadSuccess = SaveLoad.LoadGameMenu(hero, ref _map);
-            string name = hero.Name;
 
             if (loadSuccess)
             {
@@ -161,8 +160,7 @@ namespace TextBaseGame
 
                     if (i == 1)
                     {
-                        Console.Write("          X is the symbol the hero, ");
-                        Console.WriteLine(hero.Name);
+                        Console.WriteLine($"          X is the symbol the hero {hero.Name}.");
                     }
                     else if (i == 2)
                     {
