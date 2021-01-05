@@ -65,7 +65,6 @@ namespace TextBaseGame
                         i--;
                     }
                     //If there already is enemy on location, do again so we have 10 monsters
-                    
                 }
                 //Keys
                 if (i >= 10)
@@ -91,7 +90,7 @@ namespace TextBaseGame
                     {
                         i--;
                     }
-                        //If key already on this loaction, do again so we have 10 keys.   
+                    //If key already on this loaction, do again so we have 10 keys.
                 }
             }
 
@@ -297,7 +296,7 @@ namespace TextBaseGame
                     {
                         switch (testInput)
                         {
-                            case "SAVE": 
+                            case "SAVE":
                                 SaveLoad.SaveGameMenu(hero, Map);
                                 break;
 
@@ -429,17 +428,15 @@ namespace TextBaseGame
             if (enemies == 3)
                 Console.WriteLine("CURSES! there are 2 MORE monsters!");
 
-
             //If monsters are alive
             while (enemies != 0)
             {
-                
                 if (!(rand.NextDouble() > hero.FailChance))
                 {
                     hero.HP -= monster.MonsterAttack;
                     Console.WriteLine("CURSES! THE MONSTER HURT YOU!");
                     Console.WriteLine($"Hp decreased to: {hero.HP}");
-                    
+
                     if (hero.HP <= 0)
                     {
                         GameOver(hero);
