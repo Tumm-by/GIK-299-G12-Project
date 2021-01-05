@@ -33,7 +33,7 @@ namespace TextBaseGame
         }
 
         //Saves the game
-        public static void Save(string saveGamePath, Hero hero, string[,] map)
+        private static void Save(string saveGamePath, Hero hero, string[,] map)
         {
             //2d arrays are not supported by the json serializer. Converting 2d array into a jagged array which is supported.
             string[][] jaggedMap = new string[map.GetLength(0)][];
@@ -55,7 +55,7 @@ namespace TextBaseGame
         }
 
         //Loads a game from a file
-        public static void Load(string saveGamePath, Hero hero, out string[,] map)
+        private static void Load(string saveGamePath, Hero hero, out string[,] map)
         {
             //Loading the savegame
             SaveGame loadGame = JsonSerializer.Deserialize<SaveGame>(File.ReadAllText(saveGamePath, new UTF8Encoding()));

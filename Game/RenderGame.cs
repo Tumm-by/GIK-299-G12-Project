@@ -150,6 +150,7 @@ namespace TextBaseGame
                     Ascii.HowToMoveArrow();
                 }
 
+                //Renders the game map
                 for (int i = 0; i < 10; i++)
                 {
                     Console.Write("                ");
@@ -158,21 +159,17 @@ namespace TextBaseGame
                         Console.Write(Map[i, j]);
                     }
 
-                    if (i == 1)
+                    if (i == Map.GetUpperBound(0) - 2)
                     {
-                        Console.WriteLine($"          X is the symbol the hero {hero.Name}.");
+                        Console.WriteLine($"{hero.Name}:");
                     }
-                    else if (i == 2)
+                    else if (i == Map.GetUpperBound(0) - 1)
                     {
-                        Console.WriteLine("          Y is the symbol for a room with Monsters in it!");
+                        Console.WriteLine($"HP: {hero.HP}");
                     }
-                    else if (i == 3)
+                    else if (i == Map.GetUpperBound(0))
                     {
-                        Console.WriteLine("          K is the symbol for a room with Keys in it!");
-                    }
-                    else if (i == 4)
-                    {
-                        Console.WriteLine("          YK is the symbol for a room with both Keys AND Monsters in it!");
+                        Console.WriteLine($"Keys = {hero.NumberOfKeys}");
                     }
                     else
                     {

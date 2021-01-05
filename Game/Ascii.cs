@@ -107,6 +107,7 @@ namespace TextBaseGame
             ||                                 ||
             ||     TO OPEN Menu: menu          ||
             ||_________________________________||
+                X = Hero, Y = Monster K = Key
             ");
             Console.WriteLine();
         }
@@ -130,6 +131,7 @@ namespace TextBaseGame
             ||                                 ||
             ||          TO OPEN Menu: ESCAPE   ||
             ||_________________________________||
+                X = Hero, Y = Monster K = Key
             ");
             Console.WriteLine();
         }
