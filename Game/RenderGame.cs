@@ -28,8 +28,6 @@ namespace TextBaseGame
             Hero hero = new Hero();
             bool loadSuccess = SaveLoad.LoadGameMenu(hero, ref _map);
             string name = hero.Name;
-            Console.WriteLine(name);
-            Console.ReadKey();
 
             if (loadSuccess)
             {
@@ -49,37 +47,53 @@ namespace TextBaseGame
             //Draw enemies and keys on the Map
             for (int i = 0; i < 20; i++)
             {
-                random1 = rnd.Next(0, 10);
-                random2 = rnd.Next(0, 10);
+                random1 = rnd.Next(0, 9);
+                random2 = rnd.Next(0, 9);
                 //Enemies
                 if (i < 10)
                 {
-                    //If there already is enemy on location, do again so we have 10 monsters
-                    if (Map[random1, random2] == " Y ")
+                    if (random1 != 0 && random2 != 9)
+                    {
+                        if (Map[random1, random2] == " Y ")
+                        {
+                            i--;
+                        }
+                        //Add monster on location
+                        Map[random1, random2] = " Y ";
+                    }
+                    else
                     {
                         i--;
                     }
-                    //Add monster on location
-                    Map[random1, random2] = " Y ";
+                    //If there already is enemy on location, do again so we have 10 monsters
+                    
                 }
                 //Keys
                 if (i >= 10)
                 {
-                    //If key already on this loaction, do again so we have 10 keys.
-                    if (Map[random1, random2] == " K ")
+                    if (random1 != 0 && random2 != 9)
+                    {
+                        if (Map[random1, random2] == " K ")
+                        {
+                            i--;
+                        }
+                        //If Monster on location, add new symbol to represent key and monster.
+                        else if (Map[random1, random2] == " Y ")
+                        {
+                            Map[random1, random2] = " YK";
+                        }
+                        //if nothing on location, add key.
+                        else
+                        {
+                            Map[random1, random2] = " K ";
+                        }
+                    }
+                    else
                     {
                         i--;
                     }
-                    //If Monster on location, add new symbol to represent key and monster.
-                    else if (Map[random1, random2] == " Y ")
-                    {
-                        Map[random1, random2] = " YK";
-                    }
-                    //if nothing on location, add key.
-                    else
-                    {
-                        Map[random1, random2] = " K ";
-                    }
+                        //If key already on this loaction, do again so we have 10 keys.
+                    
                 }
             }
 
@@ -127,6 +141,7 @@ namespace TextBaseGame
                 Console.Clear();
                 //Draw hero on Map
                 Map[hero.PosX, hero.PosY] = " X ";
+
                 if (moveWay == 2)
                 {
                     Ascii.HowToMoveText();
@@ -144,7 +159,27 @@ namespace TextBaseGame
                         Console.Write(Map[i, j]);
                     }
 
-                    Console.WriteLine("      ");
+                    if (i == 1)
+                    {
+                        Console.Write("          X is the symbol the hero, ");
+                        Console.WriteLine(hero.Name);
+                    }
+                    else if (i == 2)
+                    {
+                        Console.WriteLine("          Y is the symbol for a room with Monsters in it!");
+                    }
+                    else if (i == 3)
+                    {
+                        Console.WriteLine("          K is the symbol for a room with Keys in it!");
+                    }
+                    else if (i == 4)
+                    {
+                        Console.WriteLine("          YK is the symbol for a room with both Keys AND Monsters in it!");
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                    }
                 }
                 //Wait for move
                 Move(hero, moveWay);
@@ -268,7 +303,7 @@ namespace TextBaseGame
                     {
                         switch (testInput)
                         {
-                            case "SAVE":
+                            case "SAVE": 
                                 SaveLoad.SaveGameMenu(hero, Map);
                                 break;
 
@@ -380,7 +415,7 @@ namespace TextBaseGame
                     return false;
 
                 default:
-                    Console.WriteLine($"{hero.Name}! Can't decide what to do! {hero.Name} retreated!");
+                    Console.WriteLine($"{hero.Name} Can't decide what to do! {hero.Name} retreated!");
                     Console.ReadLine();
                     return false;
             }
@@ -388,10 +423,9 @@ namespace TextBaseGame
 
         private void Fight(Hero hero, int keys)
         {
-            //Console.Clear();
             Random rand = new Random();
             //Make monster
-            Monster monster = new Monster(10, 10, 5, .5);
+            Monster monster = new Monster(10, 10, 10, .1);
             //Randomize how many monsters in room
             int enemies = rand.Next(1, 4);
 

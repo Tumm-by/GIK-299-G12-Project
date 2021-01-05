@@ -21,56 +21,47 @@ namespace TextBaseGame
         //Starts menu
         private static bool Meny()
         {
-            if (true)
+
+            Console.Clear();
+            Console.WriteLine("Write //START// or //S// to Play");
+            Console.WriteLine("Write //LOAD// or //L// to Load a Saved Game");
+            Console.WriteLine("Write //EXIT// or //E// to Exit Game");
+
+            switch (Console.ReadLine().ToLower().Trim())
             {
+                case "s":
+                case "start":
+                    Console.Clear();
+                    Ascii.StartGame();
+                    Console.WriteLine();
+                    Console.WriteLine("Welcome to the textbased game: GET OUT OF THE DUNGEON!");
+                    Console.WriteLine("Under your adventure you happened to get stuck in a dungeon!");
+                    Console.WriteLine("To get out of the dungeon you will have to find 10 keys.");
+                    Console.WriteLine("You can find the keys by collecting them from different rooms.");
+                    Console.WriteLine("After colleting 10 keys you will have to reach the end of the dungeon to get out.");
+                    Console.WriteLine("However beware of the monsters!\n");
 
-                Console.Clear();
-                Console.WriteLine("Write //START// or //S// to Play");
-                Console.WriteLine("Write //LOAD// or //L// to Load a Saved Game");
-                Console.WriteLine("Write //EXIT// or //E// to Exit Game");
+                    //Starts game
+                    Start();
+                    return true;
 
-                switch (Console.ReadLine().ToLower().Trim())
-                {
-                    case "s":
-                    case "start":
-                        Console.Clear();
-                        Ascii.StartGame();
-                        Console.WriteLine();
-                        Console.WriteLine("Welcome to the textbased game: GET OUT OF THE DUNGEON!");
-                        Console.WriteLine("Under your adventure you happened to get stuck in a dungeon!");
-                        Console.WriteLine("To get out of the dungeon you will have to find 10 keys.");
-                        Console.WriteLine("You can find the keys by collecting them from different rooms.");
-                        Console.WriteLine("After colleting 10 keys you will have to reach the end of the dungeon to get out.");
-                        Console.WriteLine("However beware of the monsters!\n");
+                case "e":
+                case "exit":
+                    return false;
 
-                        //Starts game
-                        Start();
-                        return false;
+                case "l":
+                case "load":
+                    new RenderGame();
+                    return true;
 
-                    case "e":
-                    case "exit":
-                        return false;
-
-                    case "l":
-                    case "load":
-                        new RenderGame();
-                        return GameFinished();
-
-                    default:
-                        return true;
-                }
+                default:
+                    return true;
             }
-        }
-
-        //This function is called when the hero wins or dies, and the render loop ends.
-        private static bool GameFinished()
-        {
-            Meny();
-            return false;
+           
         }
 
         //Starts the game
-        private static bool Start()
+        private static void Start()
         {
             string heroName;
             do
@@ -86,7 +77,6 @@ namespace TextBaseGame
 
             Hero myHero = new Hero(heroName);
             new RenderGame(myHero);
-            return GameFinished();
         }
 
         private static bool ValidName(string name)
