@@ -91,8 +91,7 @@ namespace TextBaseGame
                     {
                         i--;
                     }
-                        //If key already on this loaction, do again so we have 10 keys.
-                    
+                        //If key already on this loaction, do again so we have 10 keys.   
                 }
             }
 
@@ -169,7 +168,7 @@ namespace TextBaseGame
                     }
                     else if (i == Map.GetUpperBound(0))
                     {
-                        Console.WriteLine($"Keys = {hero.NumberOfKeys}");
+                        Console.WriteLine($"Keys: {hero.NumberOfKeys}");
                     }
                     else
                     {
@@ -447,7 +446,7 @@ namespace TextBaseGame
                         return;
                     }
                 }
-                
+
                 Console.WriteLine("You strike! \nA solid hit!");
                 TextMethod();
                 monster.MonsterHealth -= hero.AttackDamage;
