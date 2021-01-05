@@ -135,7 +135,7 @@ namespace TextBaseGame
             ");
             Console.WriteLine();
         }
-        
+
         public static void MenuInstruct()
         {
             Console.Clear();

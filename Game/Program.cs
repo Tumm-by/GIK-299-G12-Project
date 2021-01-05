@@ -13,7 +13,6 @@ namespace TextBaseGame
             //Starts menu
             while (check)
             {
-                
                 check = Meny();
             }
         }
@@ -21,7 +20,6 @@ namespace TextBaseGame
         //Starts menu
         private static bool Meny()
         {
-
             Console.Clear();
             Console.WriteLine("Write //START// or //S// to Play");
             Console.WriteLine("Write //LOAD// or //L// to Load a Saved Game");
@@ -57,7 +55,6 @@ namespace TextBaseGame
                 default:
                     return true;
             }
-           
         }
 
         //Starts the game
