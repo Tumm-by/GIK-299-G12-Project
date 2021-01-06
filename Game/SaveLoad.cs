@@ -57,7 +57,7 @@ namespace TextBaseGame
         //Loads a game from a file
         private static void Load(string saveGamePath, Hero hero, out string[,] map)
         {
-            //Loading the savegame
+            //Loading the savegame file
             SaveGame loadGame = JsonSerializer.Deserialize<SaveGame>(File.ReadAllText(saveGamePath, new UTF8Encoding()));
 
             //Turning the jaggedArray into a 2d Array.
@@ -113,7 +113,7 @@ namespace TextBaseGame
                         Console.ReadLine();
                         break;
 
-                    default:
+                    default: //Start saving process
                         if (ValidSaveGameName(input))
                         {
                             if (File.Exists($"{saveDirPath}{input}{saveFileType}"))//if the file already exists, do you want to overwrite it?
@@ -163,7 +163,7 @@ namespace TextBaseGame
             Console.ReadLine();
         }
 
-        //Menu handling user interaction for loading
+        //Returns true if save files exist.
         private static bool SavesExists()
         {
             string[] list = GetSaveGameList();
@@ -178,6 +178,7 @@ namespace TextBaseGame
             }
         }
 
+        //Menu handling user interaction for loading
         public static bool LoadGameMenu(Hero hero, ref string[,] map)
         {
             string input;
@@ -201,7 +202,6 @@ namespace TextBaseGame
                             foreach (string s in GetSaveGameList())
                                 Console.WriteLine(s);
                         }
-
                         break;
 
                     default:
@@ -221,7 +221,7 @@ namespace TextBaseGame
             }
         }
 
-        //returns string[] of the savegames that already exist
+        //Returns a string array of the savegames that already exist
         public static string[] GetSaveGameList()
         {
             string[] saveGameList = Directory.GetFiles(saveDirPath);
@@ -235,7 +235,7 @@ namespace TextBaseGame
             return saveGameList;
         }
 
-        //Checks if the "name" string is a valid name. I.e. one that contains only letters
+        //Checks if the "name" string is a valid name. i.e. one that contains only letters
         private static bool ValidSaveGameName(string name)
         {
             if (string.IsNullOrEmpty(name))
