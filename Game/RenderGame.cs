@@ -183,7 +183,7 @@ namespace TextBaseGame
                 Move(hero, moveWay);
             }
         }
-        
+
         //Inspects the map coordinate that the hero wants to move to.
         //Action taken is determined by the content of that coordinate.
         public void CheckMove(Hero hero, int differential, string direction)
