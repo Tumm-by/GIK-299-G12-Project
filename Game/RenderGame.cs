@@ -2,7 +2,7 @@
 
 namespace TextBaseGame
 {
-    //The central class in terms of running the game. Handles rendering, player movement, and connects to the other classes used by the game. Ascii, Monster, Hero, SaveLoad and Program
+    //The central class in terms of running the game. Handles rendering, player movement and connects to the other classes used by the game. Ascii, Monster, Hero, SaveLoad and Program
     public class RenderGame
     {
         private string[,] _map = //the game map before anything has been placed on it.
