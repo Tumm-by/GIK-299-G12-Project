@@ -2,6 +2,7 @@ using System;
 
 namespace TextBaseGame
 {
+    //Class for displaying Ascii art for the game.
     internal class Ascii
     {
         public static void MonsterSpawn()
