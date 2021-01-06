@@ -2,9 +2,10 @@
 
 namespace TextBaseGame
 {
+    //The central class in terms of running the game. Handles rendering, player movement, and connects to the other classes used by the game. Ascii, Monster, Hero, SaveLoad and Program
     public class RenderGame
     {
-        private string[,] _map =
+        private string[,] _map = //the game map before anything has been placed on it.
             {
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
                 { " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . ", " . " },
@@ -23,6 +24,7 @@ namespace TextBaseGame
         public string[,] Map { get { return _map; } set { _map = value; } }
         public bool PlayGame { get { return _playGame; } set { _playGame = value; } }
 
+        //Starting point when starting from a save game file.
         public RenderGame()
         {
             Hero hero = new Hero();
@@ -34,6 +36,7 @@ namespace TextBaseGame
             }
         }
 
+        //Starting point when starting a new game, handles creation of the game map.
         public RenderGame(Hero hero)
         {
             Random rnd = new Random();
@@ -98,6 +101,8 @@ namespace TextBaseGame
             RenderLoop(hero);
         }
 
+        //The toplevel loop in running the game.
+        //Determines the players input method and renders the game map.
         public void RenderLoop(Hero hero)
         {
             int moveWay = 0;
@@ -106,7 +111,7 @@ namespace TextBaseGame
             {
                 bool check = true;
                 do
-                {
+                { //Asks player to select an input method for the game.
                     Console.Clear();
                     Console.WriteLine("Do You Want to Use Arrow Keys or Text to Move Hero?");
                     Console.WriteLine();
@@ -178,7 +183,9 @@ namespace TextBaseGame
                 Move(hero, moveWay);
             }
         }
-
+        
+        //Inspects the map coordinate that the hero wants to move to.
+        //Action taken is determined by the content of that coordinate.
         public void CheckMove(Hero hero, int differential, string direction)
         {
             //Which direction we are checkin and moving.
@@ -249,6 +256,7 @@ namespace TextBaseGame
             }
         }
 
+        //Handles player interaction on the the gamemap. Letting the player move the hero or use the menu to Save, Load or Exit the game.
         public void Move(Hero hero, int moveway)
         {
             if (moveway == 1)
@@ -286,7 +294,7 @@ namespace TextBaseGame
                     }
                 }
 
-                if (keyInfo.Key == ConsoleKey.Escape)
+                if (keyInfo.Key == ConsoleKey.Escape) //Pressing escape to bring up the Save, Load and Exit menu
                 {
                     Console.Write("._"); //Prevents readkey from interfering with output, without this readkey eats from ascii text.
                     Console.Clear();
@@ -349,7 +357,7 @@ namespace TextBaseGame
                         CheckMove(hero, (1), "Y");
                     }
                 }
-                if (readInput == "menu")
+                if (readInput == "menu") //Typing menu to bring up the Save, Load and Exit menu
                 {
                     Ascii.MenuInstruct();
                     string testInput = Console.ReadLine().Trim().ToUpper();
@@ -385,6 +393,7 @@ namespace TextBaseGame
             }
         }
 
+        //Asks the player if they want to fight the monster
         private bool AskPlayer(Hero hero, int keys)
         {
             Console.Clear();
@@ -414,6 +423,7 @@ namespace TextBaseGame
             }
         }
 
+        //Handles the fight mechanics between player and monster
         private void Fight(Hero hero, int keys)
         {
             Random rand = new Random();
